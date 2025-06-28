@@ -6,6 +6,14 @@
 import React from "react";
 import { Marker } from "@react-google-maps/api";
 
+export type JobType =
+  | "litter"
+  | "flytipping"
+  | "graffiti"
+  | "vandalism"
+  | "infrastructure"
+  | "other";
+
 export interface MapPinData {
   id: number;
   position: {
@@ -14,13 +22,14 @@ export interface MapPinData {
   };
   title: string;
   description: string;
-  type: "high-priority" | "medium-priority" | "low-priority";
+  job_type: JobType;
+  imageUrl?: string; // Optional image URL for the pin
 }
 
 interface MapPinProps {
   pin: MapPinData;
   onMarkerClick: (pin: MapPinData) => void;
-  getMarkerIcon: (type: string) => google.maps.Symbol;
+  getMarkerIcon: (jobType: JobType) => google.maps.Symbol;
 }
 
 export const MapPin: React.FC<MapPinProps> = ({
@@ -37,7 +46,7 @@ export const MapPin: React.FC<MapPinProps> = ({
       key={pin.id}
       position={pin.position}
       title={pin.title}
-      icon={getMarkerIcon(pin.type)}
+      icon={getMarkerIcon(pin.job_type)}
       onClick={handleClick}
       cursor="pointer"
     />

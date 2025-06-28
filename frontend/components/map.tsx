@@ -15,7 +15,6 @@ import { createMarkerIcon } from "./map-marker-icons";
 export const defaultMapContainerStyle = {
   width: "100%",
   height: "80vh",
-  borderRadius: "15px 0px 0px 15px",
 };
 
 // Map center coordinates (London)
@@ -24,13 +23,22 @@ const defaultMapCenter = {
   lng: -0.1278,
 };
 
-// Map configuration
+// Map configuration - optimized for street cleaning reporting
 const defaultMapZoom = 15;
 const defaultMapOptions = {
+  // Essential controls
   zoomControl: true,
+
+  // Disabled features for cleaner interface
+  mapTypeControl: false, // Remove map/satellite switcher
+  streetViewControl: false, // Remove street view control
+  fullscreenControl: false, // Remove fullscreen button
+  rotateControl: false, // Remove rotate control
+
+  // Map behavior
   tilt: 0,
   gestureHandling: "auto",
-  mapTypeId: "satellite",
+  mapTypeId: "roadmap", // Standard road map view only
 };
 
 // Sample pins around London center
@@ -39,43 +47,49 @@ const mapPins: MapPinData[] = [
     id: 1,
     position: { lat: 51.5074, lng: -0.1278 },
     title: "London Eye Area",
-    description: "Popular tourist destination with street cleaning needed",
-    type: "high-priority",
+    description: "Litter accumulation around tourist destination",
+    job_type: "litter",
+    imageUrl: "https://i.ibb.co/5gbSh7nb/image.png",
   },
   {
     id: 2,
     position: { lat: 51.5085, lng: -0.1257 },
     title: "Westminster Bridge",
-    description: "Heavy foot traffic area requiring regular maintenance",
-    type: "medium-priority",
+    description: "Graffiti reported on bridge infrastructure",
+    job_type: "graffiti",
+    imageUrl: "https://i.ibb.co/5gbSh7nb/image.png",
   },
   {
     id: 3,
     position: { lat: 51.5063, lng: -0.1299 },
     title: "Parliament Square",
-    description: "Government area with strict cleanliness standards",
-    type: "high-priority",
+    description: "Fly-tipping incident near government buildings",
+    job_type: "flytipping",
+    imageUrl: "https://i.ibb.co/5gbSh7nb/image.png",
   },
   {
     id: 4,
     position: { lat: 51.5045, lng: -0.1285 },
     title: "Victoria Embankment",
-    description: "Riverside area with moderate cleaning requirements",
-    type: "low-priority",
+    description: "Damaged street infrastructure requiring attention",
+    job_type: "infrastructure",
+    imageUrl: "https://i.ibb.co/5gbSh7nb/image.png",
   },
   {
     id: 5,
     position: { lat: 51.5095, lng: -0.1235 },
     title: "Covent Garden Market",
-    description: "Busy market area with high cleaning demands",
-    type: "high-priority",
+    description: "Vandalism reported on market property",
+    job_type: "vandalism",
+    imageUrl: "https://i.ibb.co/5gbSh7nb/image.png",
   },
   {
     id: 6,
     position: { lat: 51.5055, lng: -0.1315 },
     title: "St. James's Park",
-    description: "Park area requiring specialized cleaning services",
-    type: "medium-priority",
+    description: "General maintenance issue requiring classification",
+    job_type: "other",
+    imageUrl: "https://i.ibb.co/5gbSh7nb/image.png",
   },
 ];
 

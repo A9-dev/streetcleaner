@@ -1,13 +1,12 @@
 /**
  * MapMarkerIcon utility for creating custom marker icons
  */
-
-export type PriorityType = "high-priority" | "medium-priority" | "low-priority";
+import { JobType } from "./map-pin";
 
 /**
- * Creates a custom marker icon based on priority type
+ * Creates a custom marker icon based on job type
  */
-export const createMarkerIcon = (type: string): google.maps.Symbol => {
+export const createMarkerIcon = (jobType: JobType): google.maps.Symbol => {
   const baseIcon = {
     path: google.maps.SymbolPath.CIRCLE,
     scale: 8,
@@ -15,7 +14,7 @@ export const createMarkerIcon = (type: string): google.maps.Symbol => {
     fillOpacity: 0.8,
   };
 
-  const colorConfig = getColorConfig(type);
+  const colorConfig = getColorConfig(jobType);
 
   return {
     ...baseIcon,
@@ -24,29 +23,44 @@ export const createMarkerIcon = (type: string): google.maps.Symbol => {
 };
 
 /**
- * Get color configuration for different priority types
+ * Get color configuration for different job types
  */
-const getColorConfig = (type: string) => {
-  switch (type) {
-    case "high-priority":
+const getColorConfig = (jobType: JobType) => {
+  switch (jobType) {
+    case "litter":
       return {
-        fillColor: "#ff4444",
-        strokeColor: "#cc0000",
+        fillColor: "#4CAF50", // Green for litter
+        strokeColor: "#2E7D32",
       };
-    case "medium-priority":
+    case "flytipping":
       return {
-        fillColor: "#ffaa00",
-        strokeColor: "#cc8800",
+        fillColor: "#F44336", // Red for fly-tipping (most serious)
+        strokeColor: "#C62828",
       };
-    case "low-priority":
+    case "graffiti":
       return {
-        fillColor: "#44ff44",
-        strokeColor: "#00cc00",
+        fillColor: "#9C27B0", // Purple for graffiti
+        strokeColor: "#6A1B9A",
+      };
+    case "vandalism":
+      return {
+        fillColor: "#FF5722", // Deep orange for vandalism
+        strokeColor: "#D84315",
+      };
+    case "infrastructure":
+      return {
+        fillColor: "#2196F3", // Blue for infrastructure
+        strokeColor: "#1565C0",
+      };
+    case "other":
+      return {
+        fillColor: "#607D8B", // Blue grey for other
+        strokeColor: "#37474F",
       };
     default:
       return {
-        fillColor: "#4444ff",
-        strokeColor: "#0000cc",
+        fillColor: "#9E9E9E", // Grey for unknown
+        strokeColor: "#424242",
       };
   }
 };
