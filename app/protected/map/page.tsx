@@ -1,4 +1,5 @@
 import { redirect } from "next/navigation";
+
 import { createClient } from "@/lib/supabase/server";
 
 export default async function ProtectedPage() {
@@ -9,18 +10,5 @@ export default async function ProtectedPage() {
     redirect("/auth/login");
   }
 
-  return (
-    <div>
-      <div>
-        <div>
-          This is a protected page that you can only see as an authenticated
-          user
-        </div>
-      </div>
-      <div>
-        <h2>Your user details</h2>
-        <pre>{JSON.stringify(data.user, null, 2)}</pre>
-      </div>
-    </div>
-  );
+  return <div className="flex-1 w-full flex flex-col gap-12">Map page</div>;
 }
