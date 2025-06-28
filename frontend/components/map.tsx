@@ -49,6 +49,8 @@ const mapPins: MapPinData[] = [
     title: "London Eye Area",
     description: "Popular tourist destination with street cleaning needed",
     type: "high-priority",
+    imageUrl:
+      "https://images.unsplash.com/photo-1592890278983-18616401d4ed?q=80&w=1374&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
   },
   {
     id: 2,
@@ -56,6 +58,8 @@ const mapPins: MapPinData[] = [
     title: "Westminster Bridge",
     description: "Heavy foot traffic area requiring regular maintenance",
     type: "medium-priority",
+    imageUrl:
+      "https://images.unsplash.com/photo-1592890278983-18616401d4ed?q=80&w=1374&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
   },
   {
     id: 3,
@@ -63,6 +67,8 @@ const mapPins: MapPinData[] = [
     title: "Parliament Square",
     description: "Government area with strict cleanliness standards",
     type: "high-priority",
+    imageUrl:
+      "https://images.unsplash.com/photo-1592890278983-18616401d4ed?q=80&w=1374&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
   },
   {
     id: 4,
@@ -70,6 +76,8 @@ const mapPins: MapPinData[] = [
     title: "Victoria Embankment",
     description: "Riverside area with moderate cleaning requirements",
     type: "low-priority",
+    imageUrl:
+      "https://images.unsplash.com/photo-1592890278983-18616401d4ed?q=80&w=1374&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
   },
   {
     id: 5,
@@ -77,6 +85,8 @@ const mapPins: MapPinData[] = [
     title: "Covent Garden Market",
     description: "Busy market area with high cleaning demands",
     type: "high-priority",
+    imageUrl:
+      "https://images.unsplash.com/photo-1592890278983-18616401d4ed?q=80&w=1374&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
   },
   {
     id: 6,
@@ -84,6 +94,8 @@ const mapPins: MapPinData[] = [
     title: "St. James's Park",
     description: "Park area requiring specialized cleaning services",
     type: "medium-priority",
+    imageUrl:
+      "https://images.unsplash.com/photo-1592890278983-18616401d4ed?q=80&w=1374&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
   },
 ];
 

@@ -15,6 +15,7 @@ export interface MapPinData {
   title: string;
   description: string;
   type: "high-priority" | "medium-priority" | "low-priority";
+  imageUrl?: string; // Optional image URL for the pin
 }
 
 interface MapPinProps {

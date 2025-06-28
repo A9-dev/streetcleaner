@@ -6,6 +6,7 @@
 import React from "react";
 import { Box, IconButton, Typography } from "@mui/material";
 import { Close } from "@mui/icons-material";
+import Image from "next/image";
 import { MapPinData } from "./map-pin";
 
 interface PinInfoModalProps {
@@ -102,6 +103,30 @@ export const PinInfoModal: React.FC<PinInfoModalProps> = ({
       >
         {selectedPin.title}
       </Typography>
+
+      {/* Display image if available */}
+      {selectedPin.imageUrl && (
+        <Box
+          sx={{
+            width: "100%",
+            height: 200,
+            borderRadius: 2,
+            overflow: "hidden",
+            mb: 2,
+            position: "relative",
+          }}
+        >
+          <Image
+            src={selectedPin.imageUrl}
+            alt={selectedPin.title}
+            fill
+            style={{
+              objectFit: "cover",
+            }}
+            sizes="(max-width: 500px) 100vw, 500px"
+          />
+        </Box>
+      )}
 
       <Typography
         variant="body1"
