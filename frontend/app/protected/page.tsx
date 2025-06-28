@@ -1,5 +1,7 @@
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
+import { Box, Typography, Alert, Paper } from "@mui/material";
+import { InfoOutlined } from "@mui/icons-material";
 
 export default async function ProtectedPage() {
   const supabase = await createClient();
@@ -10,17 +12,31 @@ export default async function ProtectedPage() {
   }
 
   return (
-    <div>
-      <div>
-        <div>
-          This is a protected page that you can only see as an authenticated
-          user
-        </div>
-      </div>
-      <div>
-        <h2>Your user details</h2>
-        <pre>{JSON.stringify(data.user, null, 2)}</pre>
-      </div>
-    </div>
+    <Box sx={{ display: "flex", flexDirection: "column", gap: 3 }}>
+      <Alert severity="info" icon={<InfoOutlined />}>
+        This is a protected page that you can only see as an authenticated user
+      </Alert>
+
+      <Box>
+        <Typography variant="h4" component="h2" gutterBottom>
+          Your user details
+        </Typography>
+        <Paper sx={{ p: 2, backgroundColor: "grey.100" }}>
+          <Typography
+            component="pre"
+            variant="body2"
+            sx={{
+              fontFamily: "monospace",
+              fontSize: "0.75rem",
+              maxHeight: 200,
+              overflow: "auto",
+              margin: 0,
+            }}
+          >
+            {JSON.stringify(data.user, null, 2)}
+          </Typography>
+        </Paper>
+      </Box>
+    </Box>
   );
 }

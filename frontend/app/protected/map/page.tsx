@@ -1,5 +1,5 @@
 import { redirect } from "next/navigation";
-
+import { Box, Typography } from "@mui/material";
 import { createClient } from "@/lib/supabase/server";
 
 export default async function ProtectedPage() {
@@ -10,5 +10,17 @@ export default async function ProtectedPage() {
     redirect("/auth/login");
   }
 
-  return <div className="flex-1 w-full flex flex-col gap-12">Map page</div>;
+  return (
+    <Box
+      sx={{
+        flex: 1,
+        width: "100%",
+        display: "flex",
+        flexDirection: "column",
+        gap: 1.5,
+      }}
+    >
+      <Typography variant="h4">Map page</Typography>
+    </Box>
+  );
 }
