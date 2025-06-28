@@ -7,7 +7,7 @@ import React from "react";
 import { Box, IconButton, Typography } from "@mui/material";
 import { Close } from "@mui/icons-material";
 import Image from "next/image";
-import { MapPinData } from "./map-pin";
+import { MapPinData, JobType } from "./map-pin";
 
 interface PinInfoModalProps {
   selectedPin: MapPinData | null;
@@ -15,38 +15,58 @@ interface PinInfoModalProps {
 }
 
 /**
- * Get priority colors for styling
+ * Get job type colors for styling
  */
-const getPriorityColors = (type: MapPinData["type"]) => {
-  switch (type) {
-    case "high-priority":
+const getJobTypeColors = (jobType: JobType) => {
+  switch (jobType) {
+    case "litter":
       return {
-        backgroundColor: "#ffebee",
-        color: "#c62828",
+        backgroundColor: "#E8F5E8",
+        color: "#2E7D32",
       };
-    case "medium-priority":
+    case "flytipping":
       return {
-        backgroundColor: "#fff8e1",
-        color: "#f57c00",
+        backgroundColor: "#FFEBEE",
+        color: "#C62828",
       };
-    case "low-priority":
+    case "graffiti":
       return {
-        backgroundColor: "#f1f8e9",
-        color: "#2e7d32",
+        backgroundColor: "#F3E5F5",
+        color: "#6A1B9A",
+      };
+    case "vandalism":
+      return {
+        backgroundColor: "#FFF3E0",
+        color: "#D84315",
+      };
+    case "infrastructure":
+      return {
+        backgroundColor: "#E3F2FD",
+        color: "#1565C0",
+      };
+    case "other":
+      return {
+        backgroundColor: "#F5F5F5",
+        color: "#37474F",
       };
     default:
       return {
-        backgroundColor: "#e3f2fd",
-        color: "#1976d2",
+        backgroundColor: "#F5F5F5",
+        color: "#424242",
       };
   }
 };
 
 /**
- * Format priority type for display
+ * Format job type for display
  */
-const formatPriorityType = (type: MapPinData["type"]): string => {
-  return type.replace("-", " ");
+const formatJobType = (jobType: JobType): string => {
+  switch (jobType) {
+    case "flytipping":
+      return "Fly-tipping";
+    default:
+      return jobType.charAt(0).toUpperCase() + jobType.slice(1);
+  }
 };
 
 export const PinInfoModal: React.FC<PinInfoModalProps> = ({
@@ -55,7 +75,7 @@ export const PinInfoModal: React.FC<PinInfoModalProps> = ({
 }) => {
   if (!selectedPin) return null;
 
-  const priorityColors = getPriorityColors(selectedPin.type);
+  const jobTypeColors = getJobTypeColors(selectedPin.job_type);
 
   return (
     <Box
@@ -149,10 +169,10 @@ export const PinInfoModal: React.FC<PinInfoModalProps> = ({
           fontSize: "0.875rem",
           fontWeight: 500,
           textTransform: "capitalize",
-          ...priorityColors,
+          ...jobTypeColors,
         }}
       >
-        {formatPriorityType(selectedPin.type)}
+        {formatJobType(selectedPin.job_type)}
       </Box>
     </Box>
   );

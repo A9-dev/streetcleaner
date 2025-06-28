@@ -47,55 +47,49 @@ const mapPins: MapPinData[] = [
     id: 1,
     position: { lat: 51.5074, lng: -0.1278 },
     title: "London Eye Area",
-    description: "Popular tourist destination with street cleaning needed",
-    type: "high-priority",
-    imageUrl:
-      "https://images.unsplash.com/photo-1592890278983-18616401d4ed?q=80&w=1374&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    description: "Litter accumulation around tourist destination",
+    job_type: "litter",
+    imageUrl: "https://i.ibb.co/5gbSh7nb/image.png",
   },
   {
     id: 2,
     position: { lat: 51.5085, lng: -0.1257 },
     title: "Westminster Bridge",
-    description: "Heavy foot traffic area requiring regular maintenance",
-    type: "medium-priority",
-    imageUrl:
-      "https://images.unsplash.com/photo-1592890278983-18616401d4ed?q=80&w=1374&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    description: "Graffiti reported on bridge infrastructure",
+    job_type: "graffiti",
+    imageUrl: "https://i.ibb.co/5gbSh7nb/image.png",
   },
   {
     id: 3,
     position: { lat: 51.5063, lng: -0.1299 },
     title: "Parliament Square",
-    description: "Government area with strict cleanliness standards",
-    type: "high-priority",
-    imageUrl:
-      "https://images.unsplash.com/photo-1592890278983-18616401d4ed?q=80&w=1374&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    description: "Fly-tipping incident near government buildings",
+    job_type: "flytipping",
+    imageUrl: "https://i.ibb.co/5gbSh7nb/image.png",
   },
   {
     id: 4,
     position: { lat: 51.5045, lng: -0.1285 },
     title: "Victoria Embankment",
-    description: "Riverside area with moderate cleaning requirements",
-    type: "low-priority",
-    imageUrl:
-      "https://images.unsplash.com/photo-1592890278983-18616401d4ed?q=80&w=1374&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    description: "Damaged street infrastructure requiring attention",
+    job_type: "infrastructure",
+    imageUrl: "https://i.ibb.co/5gbSh7nb/image.png",
   },
   {
     id: 5,
     position: { lat: 51.5095, lng: -0.1235 },
     title: "Covent Garden Market",
-    description: "Busy market area with high cleaning demands",
-    type: "high-priority",
-    imageUrl:
-      "https://images.unsplash.com/photo-1592890278983-18616401d4ed?q=80&w=1374&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    description: "Vandalism reported on market property",
+    job_type: "vandalism",
+    imageUrl: "https://i.ibb.co/5gbSh7nb/image.png",
   },
   {
     id: 6,
     position: { lat: 51.5055, lng: -0.1315 },
     title: "St. James's Park",
-    description: "Park area requiring specialized cleaning services",
-    type: "medium-priority",
-    imageUrl:
-      "https://images.unsplash.com/photo-1592890278983-18616401d4ed?q=80&w=1374&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    description: "General maintenance issue requiring classification",
+    job_type: "other",
+    imageUrl: "https://i.ibb.co/5gbSh7nb/image.png",
   },
 ];
 
