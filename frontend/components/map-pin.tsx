@@ -23,6 +23,7 @@ export interface MapPinData {
   title: string;
   description: string;
   job_type: JobType;
+  bounty: number; // Points bounty for completing this job
   imageUrl?: string; // Optional image URL for the pin
 }
 

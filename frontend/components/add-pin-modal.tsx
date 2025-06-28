@@ -20,6 +20,7 @@ import {
   MenuItem,
 } from "@mui/material";
 import { Close, CloudUpload } from "@mui/icons-material";
+import { useUserPoints } from "@/hooks/useUserPoints";
 
 export type JobType =
   | "flytipping"
@@ -43,6 +44,7 @@ export interface NewPinData {
   description: string;
   jobType: JobType;
   reporterId: string;
+  bounty: number;
 }
 
 export const AddPinModal: React.FC<AddPinModalProps> = ({
@@ -51,6 +53,7 @@ export const AddPinModal: React.FC<AddPinModalProps> = ({
   onSubmit,
   reporterId,
 }) => {
+  const { userPoints, addPointsToBounty } = useUserPoints();
   const [formData, setFormData] = useState<NewPinData>({
     image: null,
     latitude: 0,
@@ -58,6 +61,7 @@ export const AddPinModal: React.FC<AddPinModalProps> = ({
     description: "",
     jobType: "litter",
     reporterId,
+    bounty: 0,
   });
   const [errors, setErrors] = useState<
     Partial<Record<keyof NewPinData, string>>
@@ -129,6 +133,14 @@ export const AddPinModal: React.FC<AddPinModalProps> = ({
       newErrors.jobType = "Job type is required";
     }
 
+    if (formData.bounty < 0) {
+      newErrors.bounty = "Bounty cannot be negative";
+    }
+
+    if (formData.bounty > userPoints) {
+      newErrors.bounty = `Insufficient points. You have ${userPoints} points available.`;
+    }
+
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
@@ -136,6 +148,14 @@ export const AddPinModal: React.FC<AddPinModalProps> = ({
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (validateForm()) {
+      // Deduct bounty points from user if bounty > 0
+      if (formData.bounty > 0) {
+        if (!addPointsToBounty(formData.bounty)) {
+          setErrors({ bounty: "Failed to deduct points" });
+          return;
+        }
+      }
+
       onSubmit(formData);
       handleClose();
     }
@@ -149,6 +169,7 @@ export const AddPinModal: React.FC<AddPinModalProps> = ({
       description: "",
       jobType: "litter",
       reporterId,
+      bounty: 0,
     });
     setErrors({});
     setDragActive(false);
@@ -338,6 +359,54 @@ export const AddPinModal: React.FC<AddPinModalProps> = ({
                   <MenuItem value="other">Other</MenuItem>
                 </Select>
               </FormControl>
+
+              {/* Initial Bounty */}
+              <Box>
+                <Typography
+                  variant="subtitle1"
+                  gutterBottom
+                  fontWeight="medium"
+                >
+                  Initial Bounty
+                </Typography>
+                <TextField
+                  label="Points to add as bounty"
+                  type="number"
+                  value={formData.bounty || ""}
+                  onChange={(e) =>
+                    handleInputChange("bounty", parseInt(e.target.value) || 0)
+                  }
+                  error={!!errors.bounty}
+                  helperText={
+                    errors.bounty ||
+                    `Available points: ${userPoints.toLocaleString()}`
+                  }
+                  inputProps={{
+                    min: 0,
+                    max: userPoints,
+                  }}
+                  fullWidth
+                  InputProps={{
+                    startAdornment: (
+                      <Box
+                        sx={{ mr: 1, display: "flex", alignItems: "center" }}
+                      >
+                        <span role="img" aria-label="points">
+                          🪙
+                        </span>
+                      </Box>
+                    ),
+                  }}
+                />
+                <Typography
+                  variant="caption"
+                  color="text.secondary"
+                  sx={{ mt: 1, display: "block" }}
+                >
+                  Optional: Add an initial bounty to attract more attention to
+                  this job
+                </Typography>
+              </Box>
 
               {/* Description */}
               <TextField

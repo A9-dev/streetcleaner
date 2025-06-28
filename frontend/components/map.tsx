@@ -4,12 +4,12 @@ we need to make this component client rendered as well else error occurs
 */
 "use client";
 
-import { useState, useCallback } from "react";
 import { GoogleMap } from "@react-google-maps/api";
 import { Box } from "@mui/material";
-import { MapPin, type MapPinData } from "./map-pin";
+import { MapPin } from "./map-pin";
 import { PinInfoModal } from "./pin-info-modal";
 import { createMarkerIcon } from "./map-marker-icons";
+import { useMapPins } from "../hooks/useMapPins";
 
 // Map styling configuration
 export const defaultMapContainerStyle = {
@@ -41,68 +41,14 @@ const defaultMapOptions = {
   mapTypeId: "roadmap", // Standard road map view only
 };
 
-// Sample pins around London center
-const mapPins: MapPinData[] = [
-  {
-    id: 1,
-    position: { lat: 51.5074, lng: -0.1278 },
-    title: "London Eye Area",
-    description: "Litter accumulation around tourist destination",
-    job_type: "litter",
-    imageUrl: "https://i.ibb.co/5gbSh7nb/image.png",
-  },
-  {
-    id: 2,
-    position: { lat: 51.5085, lng: -0.1257 },
-    title: "Westminster Bridge",
-    description: "Graffiti reported on bridge infrastructure",
-    job_type: "graffiti",
-    imageUrl: "https://i.ibb.co/5gbSh7nb/image.png",
-  },
-  {
-    id: 3,
-    position: { lat: 51.5063, lng: -0.1299 },
-    title: "Parliament Square",
-    description: "Fly-tipping incident near government buildings",
-    job_type: "flytipping",
-    imageUrl: "https://i.ibb.co/5gbSh7nb/image.png",
-  },
-  {
-    id: 4,
-    position: { lat: 51.5045, lng: -0.1285 },
-    title: "Victoria Embankment",
-    description: "Damaged street infrastructure requiring attention",
-    job_type: "infrastructure",
-    imageUrl: "https://i.ibb.co/5gbSh7nb/image.png",
-  },
-  {
-    id: 5,
-    position: { lat: 51.5095, lng: -0.1235 },
-    title: "Covent Garden Market",
-    description: "Vandalism reported on market property",
-    job_type: "vandalism",
-    imageUrl: "https://i.ibb.co/5gbSh7nb/image.png",
-  },
-  {
-    id: 6,
-    position: { lat: 51.5055, lng: -0.1315 },
-    title: "St. James's Park",
-    description: "General maintenance issue requiring classification",
-    job_type: "other",
-    imageUrl: "https://i.ibb.co/5gbSh7nb/image.png",
-  },
-];
-
 const MapComponent = () => {
-  const [selectedPin, setSelectedPin] = useState<MapPinData | null>(null);
-
-  const handleMarkerClick = useCallback((pin: MapPinData) => {
-    setSelectedPin(pin);
-  }, []);
-
-  const handleInfoWindowClose = useCallback(() => {
-    setSelectedPin(null);
-  }, []);
+  const {
+    pins,
+    selectedPin,
+    handleMarkerClick,
+    handleInfoWindowClose,
+    updatePin,
+  } = useMapPins();
 
   return (
     <Box sx={{ width: "100%" }}>
@@ -112,7 +58,7 @@ const MapComponent = () => {
         zoom={defaultMapZoom}
         options={defaultMapOptions}
       >
-        {mapPins.map((pin) => (
+        {pins.map((pin) => (
           <MapPin
             key={pin.id}
             pin={pin}
@@ -124,6 +70,7 @@ const MapComponent = () => {
         <PinInfoModal
           selectedPin={selectedPin}
           onClose={handleInfoWindowClose}
+          onUpdatePin={updatePin}
         />
       </GoogleMap>
     </Box>
