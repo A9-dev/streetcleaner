@@ -2,16 +2,6 @@
 
 import { cn } from "@/lib/utils";
 import { createClient } from "@/lib/supabase/client";
-import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -49,62 +39,72 @@ export function LoginForm({
 
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
-      <Card>
-        <CardHeader>
-          <CardTitle className="text-2xl">Login</CardTitle>
-          <CardDescription>
+      <div className="bg-white rounded-lg shadow p-6">
+        <div className="mb-6">
+          <h2 className="text-2xl font-semibold">Login</h2>
+          <p className="text-gray-600 mt-1">
             Enter your email below to login to your account
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
+          </p>
+        </div>
+        <div>
           <form onSubmit={handleLogin}>
             <div className="flex flex-col gap-6">
               <div className="grid gap-2">
-                <Label htmlFor="email">Email</Label>
-                <Input
+                <label htmlFor="email" className="font-medium">
+                  Email
+                </label>
+                <input
                   id="email"
                   type="email"
                   placeholder="m@example.com"
                   required
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
+                  className="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
               </div>
               <div className="grid gap-2">
                 <div className="flex items-center">
-                  <Label htmlFor="password">Password</Label>
-                  <Link
+                  <label htmlFor="password" className="font-medium">
+                    Password
+                  </label>
+                  <a
                     href="/auth/forgot-password"
-                    className="ml-auto inline-block text-sm underline-offset-4 hover:underline"
+                    className="ml-auto inline-block text-sm underline-offset-4 hover:underline text-blue-600"
                   >
                     Forgot your password?
-                  </Link>
+                  </a>
                 </div>
-                <Input
+                <input
                   id="password"
                   type="password"
                   required
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
+                  className="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
               </div>
               {error && <p className="text-sm text-red-500">{error}</p>}
-              <Button type="submit" className="w-full" disabled={isLoading}>
+              <button
+                type="submit"
+                className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition disabled:opacity-50"
+                disabled={isLoading}
+              >
                 {isLoading ? "Logging in..." : "Login"}
-              </Button>
+              </button>
             </div>
             <div className="mt-4 text-center text-sm">
               Don&apos;t have an account?{" "}
-              <Link
+              <a
                 href="/auth/sign-up"
-                className="underline underline-offset-4"
+                className="underline underline-offset-4 text-blue-600"
               >
                 Sign up
-              </Link>
+              </a>
             </div>
           </form>
-        </CardContent>
-      </Card>
+        </div>
+      </div>
     </div>
   );
 }
