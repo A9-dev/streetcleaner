@@ -15,6 +15,25 @@ export async function AuthButton() {
       <Typography variant="body2" color="inherit">
         Hey, {user.email}!
       </Typography>
+      <Box
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          gap: 0.5,
+          bgcolor: "grey.100",
+          px: 1,
+          py: 0.5,
+          borderRadius: 1,
+        }}
+      >
+        {/* Replace with your preferred icon */}
+        <span role="img" aria-label="points">
+          🪙
+        </span>
+        <Typography variant="body2" color="text.primary" fontWeight="bold">
+          8000
+        </Typography>
+      </Box>
       <LogoutButton />
     </Box>
   ) : (
