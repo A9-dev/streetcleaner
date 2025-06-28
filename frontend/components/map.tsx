@@ -24,13 +24,22 @@ const defaultMapCenter = {
   lng: -0.1278,
 };
 
-// Map configuration
+// Map configuration - optimized for street cleaning reporting
 const defaultMapZoom = 15;
 const defaultMapOptions = {
+  // Essential controls
   zoomControl: true,
+
+  // Disabled features for cleaner interface
+  mapTypeControl: false, // Remove map/satellite switcher
+  streetViewControl: false, // Remove street view control
+  fullscreenControl: false, // Remove fullscreen button
+  rotateControl: false, // Remove rotate control
+
+  // Map behavior
   tilt: 0,
   gestureHandling: "auto",
-  mapTypeId: "satellite",
+  mapTypeId: "roadmap", // Standard road map view only
 };
 
 // Sample pins around London center
