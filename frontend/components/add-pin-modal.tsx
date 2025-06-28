@@ -21,7 +21,13 @@ import {
 } from "@mui/material";
 import { Close, CloudUpload } from "@mui/icons-material";
 
-export type JobType = "flytipping" | "litter" | "graffiti";
+export type JobType =
+  | "flytipping"
+  | "graffiti"
+  | "vandalism"
+  | "infrastructure"
+  | "litter"
+  | "other";
 
 interface AddPinModalProps {
   open: boolean;
@@ -327,6 +333,9 @@ export const AddPinModal: React.FC<AddPinModalProps> = ({
                   <MenuItem value="litter">Litter</MenuItem>
                   <MenuItem value="flytipping">Fly-tipping</MenuItem>
                   <MenuItem value="graffiti">Graffiti</MenuItem>
+                  <MenuItem value="vandalism">Vandalism</MenuItem>
+                  <MenuItem value="infrastructure">Infrastructure</MenuItem>
+                  <MenuItem value="other">Other</MenuItem>
                 </Select>
               </FormControl>
 
