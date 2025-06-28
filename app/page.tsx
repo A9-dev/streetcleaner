@@ -18,7 +18,7 @@ export default function Home() {
         </div>
 
         <footer>
-          <p>footer</p>
+          <p>Footer</p>
         </footer>
       </div>
     </main>
