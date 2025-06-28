@@ -8,7 +8,7 @@ import {
   Typography,
   Paper,
 } from "@mui/material";
-
+import { MapPageClient } from "@/components/map-page-client";
 export default function Home() {
   return (
     <Box
@@ -30,9 +30,7 @@ export default function Home() {
       </AppBar>
 
       <Container sx={{ flex: 1, py: 4 }}>
-        <Typography variant="h2" component="h1" gutterBottom>
-          Main
-        </Typography>
+        <MapPageClient />
       </Container>
 
       <Paper component="footer" sx={{ mt: "auto", py: 2 }}>
