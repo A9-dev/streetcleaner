@@ -1,9 +1,18 @@
 "use client";
 
 import { createClient } from "@/lib/supabase/client";
-
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import {
+  Container,
+  Paper,
+  Typography,
+  TextField,
+  Button,
+  Alert,
+  Box,
+  Link,
+} from "@mui/material";
 
 export function SignUpForm() {
   const [email, setEmail] = useState("");
@@ -43,69 +52,94 @@ export function SignUpForm() {
   };
 
   return (
-    <main>
-      <section>
-        <header>
-          <h2>Sign up</h2>
-          <p>Create a new account</p>
-        </header>
+    <Container component="main" maxWidth="sm">
+      <Box
+        sx={{
+          marginTop: 8,
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+        }}
+      >
+        <Paper elevation={3} sx={{ padding: 4, width: "100%" }}>
+          <Typography component="h1" variant="h4" align="center" gutterBottom>
+            Sign up
+          </Typography>
+          <Typography
+            variant="body2"
+            color="text.secondary"
+            align="center"
+            sx={{ mb: 3 }}
+          >
+            Create a new account
+          </Typography>
 
-        <form onSubmit={handleSignUp}>
-          <fieldset>
-            <legend>Account Information</legend>
-
-            <div>
-              <label htmlFor="email">Email</label>
-              <input
-                id="email"
-                type="email"
-                placeholder="m@example.com"
-                required
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              />
-            </div>
-
-            <div>
-              <label htmlFor="password">Password</label>
-              <input
-                id="password"
-                type="password"
-                required
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-              />
-            </div>
-
-            <div>
-              <label htmlFor="repeat-password">Repeat Password</label>
-              <input
-                id="repeat-password"
-                type="password"
-                required
-                value={repeatPassword}
-                onChange={(e) => setRepeatPassword(e.target.value)}
-              />
-            </div>
+          <Box component="form" onSubmit={handleSignUp} sx={{ mt: 1 }}>
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              id="email"
+              label="Email"
+              name="email"
+              autoComplete="email"
+              autoFocus
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="m@example.com"
+            />
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              name="password"
+              label="Password"
+              type="password"
+              id="password"
+              autoComplete="new-password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              name="repeat-password"
+              label="Repeat Password"
+              type="password"
+              id="repeat-password"
+              autoComplete="new-password"
+              value={repeatPassword}
+              onChange={(e) => setRepeatPassword(e.target.value)}
+            />
 
             {error && (
-              <p>
-                <strong>Error:</strong> {error}
-              </p>
+              <Alert severity="error" sx={{ mt: 2 }}>
+                {error}
+              </Alert>
             )}
 
-            <button type="submit" disabled={isLoading}>
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              sx={{ mt: 3, mb: 2 }}
+              disabled={isLoading}
+            >
               {isLoading ? "Creating an account..." : "Sign up"}
-            </button>
-          </fieldset>
-        </form>
+            </Button>
 
-        <footer>
-          <p>
-            Already have an account? <a href="/auth/login">Login</a>
-          </p>
-        </footer>
-      </section>
-    </main>
+            <Box textAlign="center">
+              <Typography variant="body2">
+                Already have an account?{" "}
+                <Link href="/auth/login" underline="hover">
+                  Login
+                </Link>
+              </Typography>
+            </Box>
+          </Box>
+        </Paper>
+      </Box>
+    </Container>
   );
 }

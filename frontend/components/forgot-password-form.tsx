@@ -1,8 +1,17 @@
 "use client";
 
 import { createClient } from "@/lib/supabase/client";
-import Link from "next/link";
 import { useState } from "react";
+import {
+  Container,
+  Paper,
+  Typography,
+  TextField,
+  Button,
+  Alert,
+  Box,
+  Link,
+} from "@mui/material";
 
 export function ForgotPasswordForm() {
   const [email, setEmail] = useState("");
@@ -17,7 +26,6 @@ export function ForgotPasswordForm() {
     setError(null);
 
     try {
-      // The url which will be included in the email. This URL needs to be configured in your redirect URLs in the Supabase dashboard at https://supabase.com/dashboard/project/_/auth/url-configuration
       const { error } = await supabase.auth.resetPasswordForEmail(email, {
         redirectTo: `${window.location.origin}/auth/update-password`,
       });
@@ -31,45 +39,107 @@ export function ForgotPasswordForm() {
   };
 
   return (
-    <div>
-      {success ? (
-        <div>
-          <h2>Check Your Email</h2>
-          <p>Password reset instructions sent</p>
-          <p>
-            If you registered using your email and password, you will receive a
-            password reset email.
-          </p>
-        </div>
-      ) : (
-        <div>
-          <h2>Reset Your Password</h2>
-          <p>
-            Type in your email and we&apos;ll send you a link to reset your
-            password
-          </p>
-          <form onSubmit={handleForgotPassword}>
-            <div>
-              <label htmlFor="email">Email</label>
-              <input
-                id="email"
-                type="email"
-                placeholder="m@example.com"
-                required
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              />
-            </div>
-            {error && <p>{error}</p>}
-            <button type="submit" disabled={isLoading}>
-              {isLoading ? "Sending..." : "Send reset email"}
-            </button>
-            <div>
-              Already have an account? <Link href="/auth/login">Login</Link>
-            </div>
-          </form>
-        </div>
-      )}
-    </div>
+    <Container component="main" maxWidth="sm">
+      <Box
+        sx={{
+          marginTop: 8,
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+        }}
+      >
+        <Paper elevation={3} sx={{ padding: 4, width: "100%" }}>
+          {success ? (
+            <>
+              <Typography
+                component="h1"
+                variant="h4"
+                align="center"
+                gutterBottom
+              >
+                Check Your Email
+              </Typography>
+              <Typography
+                variant="body1"
+                color="text.secondary"
+                align="center"
+                sx={{ mb: 2 }}
+              >
+                Password reset instructions sent
+              </Typography>
+              <Typography variant="body2" color="text.secondary" align="center">
+                If you registered using your email and password, you will
+                receive a password reset email.
+              </Typography>
+            </>
+          ) : (
+            <>
+              <Typography
+                component="h1"
+                variant="h4"
+                align="center"
+                gutterBottom
+              >
+                Reset Your Password
+              </Typography>
+              <Typography
+                variant="body2"
+                color="text.secondary"
+                align="center"
+                sx={{ mb: 3 }}
+              >
+                Type in your email and we&apos;ll send you a link to reset your
+                password
+              </Typography>
+
+              <Box
+                component="form"
+                onSubmit={handleForgotPassword}
+                sx={{ mt: 1 }}
+              >
+                <TextField
+                  margin="normal"
+                  required
+                  fullWidth
+                  id="email"
+                  label="Email"
+                  name="email"
+                  autoComplete="email"
+                  autoFocus
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="m@example.com"
+                />
+
+                {error && (
+                  <Alert severity="error" sx={{ mt: 2 }}>
+                    {error}
+                  </Alert>
+                )}
+
+                <Button
+                  type="submit"
+                  fullWidth
+                  variant="contained"
+                  sx={{ mt: 3, mb: 2 }}
+                  disabled={isLoading}
+                >
+                  {isLoading ? "Sending..." : "Send reset email"}
+                </Button>
+
+                <Box textAlign="center">
+                  <Typography variant="body2">
+                    Already have an account?{" "}
+                    <Link href="/auth/login" underline="hover">
+                      Login
+                    </Link>
+                  </Typography>
+                </Box>
+              </Box>
+            </>
+          )}
+        </Paper>
+      </Box>
+    </Container>
   );
 }

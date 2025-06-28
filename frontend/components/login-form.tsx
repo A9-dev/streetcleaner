@@ -3,6 +3,16 @@
 import { createClient } from "@/lib/supabase/client";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import {
+  Container,
+  Paper,
+  Typography,
+  TextField,
+  Button,
+  Alert,
+  Box,
+  Link,
+} from "@mui/material";
 
 export function LoginForm() {
   const [email, setEmail] = useState("");
@@ -32,50 +42,102 @@ export function LoginForm() {
   };
 
   return (
-    <div>
-      <div>
-        <div>
-          <h2>Login</h2>
-          <p>Enter your email below to login to your account</p>
-        </div>
-        <div>
-          <form onSubmit={handleLogin}>
-            <div>
-              <div>
-                <label htmlFor="email">Email</label>
-                <input
-                  id="email"
-                  type="email"
-                  placeholder="m@example.com"
-                  required
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                />
-              </div>
-              <div>
-                <div>
-                  <label htmlFor="password">Password</label>
-                  <a href="/auth/forgot-password">Forgot your password?</a>
-                </div>
-                <input
-                  id="password"
-                  type="password"
-                  required
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                />
-              </div>
-              {error && <p>{error}</p>}
-              <button type="submit" disabled={isLoading}>
-                {isLoading ? "Logging in..." : "Login"}
-              </button>
-            </div>
-            <div>
-              Don&apos;t have an account? <a href="/auth/sign-up">Sign up</a>
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
+    <Container component="main" maxWidth="sm">
+      <Box
+        sx={{
+          marginTop: 8,
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+        }}
+      >
+        <Paper elevation={3} sx={{ padding: 4, width: "100%" }}>
+          <Typography component="h1" variant="h4" align="center" gutterBottom>
+            Login
+          </Typography>
+          <Typography
+            variant="body2"
+            color="text.secondary"
+            align="center"
+            sx={{ mb: 3 }}
+          >
+            Enter your email below to login to your account
+          </Typography>
+
+          <Box component="form" onSubmit={handleLogin} sx={{ mt: 1 }}>
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              id="email"
+              label="Email"
+              name="email"
+              autoComplete="email"
+              autoFocus
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="m@example.com"
+            />
+
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+                mt: 2,
+                mb: 1,
+              }}
+            >
+              <Typography variant="body2">Password</Typography>
+              <Link
+                href="/auth/forgot-password"
+                variant="body2"
+                underline="hover"
+              >
+                Forgot your password?
+              </Link>
+            </Box>
+
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              name="password"
+              label="Password"
+              type="password"
+              id="password"
+              autoComplete="current-password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+
+            {error && (
+              <Alert severity="error" sx={{ mt: 2 }}>
+                {error}
+              </Alert>
+            )}
+
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              sx={{ mt: 3, mb: 2 }}
+              disabled={isLoading}
+            >
+              {isLoading ? "Logging in..." : "Login"}
+            </Button>
+
+            <Box textAlign="center">
+              <Typography variant="body2">
+                Don&apos;t have an account?{" "}
+                <Link href="/auth/sign-up" underline="hover">
+                  Sign up
+                </Link>
+              </Typography>
+            </Box>
+          </Box>
+        </Paper>
+      </Box>
+    </Container>
   );
 }

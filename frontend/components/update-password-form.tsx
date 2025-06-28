@@ -3,6 +3,15 @@
 import { createClient } from "@/lib/supabase/client";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import {
+  Container,
+  Paper,
+  Typography,
+  TextField,
+  Button,
+  Alert,
+  Box,
+} from "@mui/material";
 
 export function UpdatePasswordForm() {
   const [password, setPassword] = useState("");
@@ -10,7 +19,7 @@ export function UpdatePasswordForm() {
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
 
-  const handleForgotPassword = async (e: React.FormEvent) => {
+  const handleUpdatePassword = async (e: React.FormEvent) => {
     e.preventDefault();
     const supabase = createClient();
     setIsLoading(true);
@@ -28,26 +37,62 @@ export function UpdatePasswordForm() {
   };
 
   return (
-    <div>
-      <h2>Reset Your Password</h2>
-      <p>Please enter your new password below.</p>
-      <form onSubmit={handleForgotPassword}>
-        <div>
-          <label htmlFor="password">New password</label>
-          <input
-            id="password"
-            type="password"
-            placeholder="New password"
-            required
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-        </div>
-        {error && <p>{error}</p>}
-        <button type="submit" disabled={isLoading}>
-          {isLoading ? "Saving..." : "Save new password"}
-        </button>
-      </form>
-    </div>
+    <Container component="main" maxWidth="sm">
+      <Box
+        sx={{
+          marginTop: 8,
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+        }}
+      >
+        <Paper elevation={3} sx={{ padding: 4, width: "100%" }}>
+          <Typography component="h1" variant="h4" align="center" gutterBottom>
+            Reset Your Password
+          </Typography>
+          <Typography
+            variant="body2"
+            color="text.secondary"
+            align="center"
+            sx={{ mb: 3 }}
+          >
+            Please enter your new password below.
+          </Typography>
+
+          <Box component="form" onSubmit={handleUpdatePassword} sx={{ mt: 1 }}>
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              name="password"
+              label="New password"
+              type="password"
+              id="password"
+              autoComplete="new-password"
+              autoFocus
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              placeholder="New password"
+            />
+
+            {error && (
+              <Alert severity="error" sx={{ mt: 2 }}>
+                {error}
+              </Alert>
+            )}
+
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              sx={{ mt: 3, mb: 2 }}
+              disabled={isLoading}
+            >
+              {isLoading ? "Saving..." : "Save new password"}
+            </Button>
+          </Box>
+        </Paper>
+      </Box>
+    </Container>
   );
 }
