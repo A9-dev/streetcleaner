@@ -1,6 +1,8 @@
 import { redirect } from "next/navigation";
-import { Box, Typography } from "@mui/material";
+import { Box } from "@mui/material";
 import { createClient } from "@/lib/supabase/server";
+import { MapProvider } from "@/components/map-provider";
+import { MapComponent } from "@/components/map";
 
 export default async function ProtectedPage() {
   const supabase = await createClient();
@@ -20,7 +22,9 @@ export default async function ProtectedPage() {
         gap: 1.5,
       }}
     >
-      <Typography variant="h4">Map page</Typography>
+      <MapProvider>
+        <MapComponent />
+      </MapProvider>
     </Box>
   );
 }
