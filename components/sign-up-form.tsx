@@ -5,7 +5,7 @@ import { createClient } from "@/lib/supabase/client";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
-export function SignUpForm(props: React.ComponentPropsWithoutRef<"main">) {
+export function SignUpForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [repeatPassword, setRepeatPassword] = useState("");
@@ -43,7 +43,7 @@ export function SignUpForm(props: React.ComponentPropsWithoutRef<"main">) {
   };
 
   return (
-    <main {...props}>
+    <main>
       <section>
         <header>
           <h2>Sign up</h2>

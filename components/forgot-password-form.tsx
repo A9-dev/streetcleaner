@@ -1,14 +1,10 @@
 "use client";
 
-import { cn } from "@/lib/utils";
 import { createClient } from "@/lib/supabase/client";
 import Link from "next/link";
 import { useState } from "react";
 
-export function ForgotPasswordForm({
-  className,
-  ...props
-}: React.ComponentPropsWithoutRef<"div">) {
+export function ForgotPasswordForm() {
   const [email, setEmail] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
@@ -35,7 +31,7 @@ export function ForgotPasswordForm({
   };
 
   return (
-    <div {...props}>
+    <div>
       {success ? (
         <div>
           <h2>Check Your Email</h2>
@@ -49,7 +45,8 @@ export function ForgotPasswordForm({
         <div>
           <h2>Reset Your Password</h2>
           <p>
-            Type in your email and we'll send you a link to reset your password
+            Type in your email and we&apos;ll send you a link to reset your
+            password
           </p>
           <form onSubmit={handleForgotPassword}>
             <div>

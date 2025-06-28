@@ -1,14 +1,10 @@
 "use client";
 
-import { cn } from "@/lib/utils";
 import { createClient } from "@/lib/supabase/client";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
-export function UpdatePasswordForm({
-  className,
-  ...props
-}: React.ComponentPropsWithoutRef<"div">) {
+export function UpdatePasswordForm() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -32,7 +28,7 @@ export function UpdatePasswordForm({
   };
 
   return (
-    <div {...props}>
+    <div>
       <h2>Reset Your Password</h2>
       <p>Please enter your new password below.</p>
       <form onSubmit={handleForgotPassword}>
