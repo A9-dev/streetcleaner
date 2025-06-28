@@ -15,7 +15,6 @@ import { createMarkerIcon } from "./map-marker-icons";
 export const defaultMapContainerStyle = {
   width: "100%",
   height: "80vh",
-  borderRadius: "15px 0px 0px 15px",
 };
 
 // Map center coordinates (London)
