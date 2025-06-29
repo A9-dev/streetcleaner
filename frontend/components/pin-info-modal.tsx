@@ -11,6 +11,7 @@ import {
   TextField,
   Button,
   Alert,
+  LinearProgress,
 } from "@mui/material";
 import { Close } from "@mui/icons-material";
 import Image from "next/image";
@@ -88,8 +89,11 @@ export const PinInfoModal: React.FC<PinInfoModalProps> = ({
   const [bountyAmount, setBountyAmount] = useState<string>("");
   const [error, setError] = useState<string>("");
   const [user, setUser] = useState<User | null>(null);
-  const [currentPage, setCurrentPage] = useState<"info" | "cleaned">("info");
+  const [currentPage, setCurrentPage] = useState<
+    "info" | "cleaned" | "validating" | "success"
+  >("info");
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
+  const [validationProgress, setValidationProgress] = useState<number>(0);
   const { userPoints, addPointsToBounty } = useUserPoints();
 
   useEffect(() => {
@@ -162,6 +166,24 @@ export const PinInfoModal: React.FC<PinInfoModalProps> = ({
         type: selectedImage.type,
         lastModified: selectedImage.lastModified,
       });
+
+      // Start validation process
+      setCurrentPage("validating");
+      setValidationProgress(0);
+
+      // Simulate AI validation with progress updates
+      const progressInterval = setInterval(() => {
+        setValidationProgress((prev) => {
+          if (prev >= 100) {
+            clearInterval(progressInterval);
+            setTimeout(() => {
+              setCurrentPage("success");
+            }, 500); // Small delay before showing success
+            return 100;
+          }
+          return prev + 10; // Increase by 10% every interval
+        });
+      }, 300); // Update every 300ms for a 3-second total animation
     } else {
       console.log("No image selected");
     }
@@ -170,6 +192,7 @@ export const PinInfoModal: React.FC<PinInfoModalProps> = ({
   const handleBackToInfo = () => {
     setCurrentPage("info");
     setSelectedImage(null);
+    setValidationProgress(0);
   };
 
   return (
@@ -198,11 +221,14 @@ export const PinInfoModal: React.FC<PinInfoModalProps> = ({
           alignItems: "center",
         }}
       >
-        {currentPage === "cleaned" && (
+        {(currentPage === "cleaned" ||
+          currentPage === "validating" ||
+          currentPage === "success") && (
           <IconButton
             onClick={handleBackToInfo}
             size="small"
             aria-label="Back"
+            disabled={currentPage === "validating"}
             sx={{
               color: "text.secondary",
               "&:hover": {
@@ -218,6 +244,7 @@ export const PinInfoModal: React.FC<PinInfoModalProps> = ({
           onClick={onClose}
           size="small"
           aria-label="Close"
+          disabled={currentPage === "validating"}
           sx={{
             color: "text.secondary",
             "&:hover": {
@@ -386,7 +413,7 @@ export const PinInfoModal: React.FC<PinInfoModalProps> = ({
             Cleaned It? 🧹
           </Button>
         </>
-      ) : (
+      ) : currentPage === "cleaned" ? (
         // Cleaned Page Content
         <>
           <Typography
@@ -456,6 +483,125 @@ export const PinInfoModal: React.FC<PinInfoModalProps> = ({
             }}
           >
             Submit Completion
+          </Button>
+        </>
+      ) : currentPage === "validating" ? (
+        // Validation Page Content
+        <>
+          <Typography
+            variant="h4"
+            component="h3"
+            sx={{
+              fontWeight: "bold",
+              mb: 1,
+              color: "text.primary",
+              textAlign: "center",
+            }}
+          >
+            AI Validation in Progress
+          </Typography>
+
+          <Typography
+            variant="body1"
+            sx={{
+              color: "text.secondary",
+              lineHeight: 1.6,
+              mb: 4,
+              textAlign: "center",
+            }}
+          >
+            Our AI is analyzing your submission to verify the cleanup...
+          </Typography>
+
+          <Box sx={{ width: "100%", mb: 2 }}>
+            <Typography variant="body2" sx={{ mb: 1, textAlign: "center" }}>
+              Analyzing image... {Math.round(validationProgress)}%
+            </Typography>
+            <LinearProgress variant="determinate" value={validationProgress} />
+          </Box>
+
+          <Box sx={{ textAlign: "center", fontSize: "3rem", mb: 2 }}>🤖</Box>
+        </>
+      ) : (
+        // Success Page Content
+        <>
+          <Typography
+            variant="h4"
+            component="h3"
+            sx={{
+              fontWeight: "bold",
+              mb: 1,
+              color: "success.main",
+              textAlign: "center",
+            }}
+          >
+            Validation Successful! ✅
+          </Typography>
+
+          <Typography
+            variant="body1"
+            sx={{
+              color: "text.secondary",
+              lineHeight: 1.6,
+              mb: 3,
+              textAlign: "center",
+            }}
+          >
+            Great job! Our AI has verified that{" "}
+            <strong>{selectedPin.title}</strong> has been successfully cleaned.
+          </Typography>
+
+          <Box
+            sx={{
+              border: "2px solid",
+              borderColor: "success.main",
+              borderRadius: 2,
+              p: 3,
+              textAlign: "center",
+              mb: 3,
+              backgroundColor: "success.light",
+              opacity: 0.1,
+            }}
+          >
+            <Typography variant="h6" sx={{ color: "success.dark", mb: 1 }}>
+              Bounty Awarded!
+            </Typography>
+            <Box
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                gap: 1,
+              }}
+            >
+              <span role="img" aria-label="points">
+                🪙
+              </span>
+              <Typography
+                variant="h4"
+                sx={{ fontWeight: "bold", color: "success.dark" }}
+              >
+                {selectedPin.bounty.toLocaleString()}
+              </Typography>
+              <Typography variant="body1" sx={{ color: "success.dark" }}>
+                points
+              </Typography>
+            </Box>
+          </Box>
+
+          <Button
+            variant="contained"
+            color="success"
+            onClick={onClose}
+            sx={{
+              alignSelf: "center",
+              px: 4,
+              py: 1.5,
+              fontSize: "1rem",
+              fontWeight: "bold",
+            }}
+          >
+            Awesome! 🎉
           </Button>
         </>
       )}
