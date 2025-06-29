@@ -11,16 +11,6 @@ import {
 } from "@mui/material";
 import { createClient } from "@/lib/supabase/server";
 
-const CardStyling = {
-  padding: "0px 2.5%",
-  width: "300px",
-  height: "100%",
-  boxSizing: "border-box",
-  display: "flex",
-  flexDirection: "column",
-  justifyContent: "space-between",
-};
-
 const ProductCardStyling = {
   padding: "0px 2.5%",
   width: "300px",
@@ -50,16 +40,79 @@ export default async function ProtectedPage() {
         p: 2,
       }}
     >
-      {/* Purchase Coins Section */}
-      <Box>
-        <Typography
-          variant="h4"
-          component="h1"
-          gutterBottom
-          sx={{ textAlign: "center", mb: 3 }}
+      {/* Purchase Coins Banner */}
+      <Box
+        sx={{
+          width: "100%",
+          height: 150,
+          borderRadius: 3,
+          background: "linear-gradient(135deg, #FFD700 0%, #FFA500 100%)",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          p: 3,
+          mb: 2,
+          boxShadow: "0 4px 20px rgba(255, 165, 0, 0.3)",
+          cursor: "pointer",
+          transition: "transform 0.2s ease-in-out",
+          "&:hover": {
+            transform: "translateY(-2px)",
+            boxShadow: "0 6px 25px rgba(255, 165, 0, 0.4)",
+          },
+        }}
+      >
+        <Box sx={{ flex: 1 }}>
+          <Typography
+            variant="h3"
+            component="h1"
+            sx={{
+              color: "white",
+              fontWeight: "bold",
+              mb: 1,
+              textShadow: "2px 2px 4px rgba(0,0,0,0.3)",
+            }}
+          >
+            Purchase Coins
+          </Typography>
+          <Typography
+            variant="h6"
+            sx={{
+              color: "white",
+              opacity: 0.9,
+              textShadow: "1px 1px 2px rgba(0,0,0,0.3)",
+            }}
+          >
+            Buy coins to increase bounties • Fund community cleanup efforts
+          </Typography>
+        </Box>
+        <Box
+          sx={{
+            width: 120,
+            height: 120,
+            borderRadius: 2,
+            overflow: "hidden",
+            backgroundColor: "white",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            boxShadow: "0 2px 10px rgba(0,0,0,0.2)",
+            position: "relative",
+          }}
         >
-          Purchase Coins
-        </Typography>
+          <Image
+            src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fpngimg.com%2Fuploads%2Fcoin%2Fcoin_PNG36907.png&f=1&nofb=1&ipt=3c6e3db118a59d64eab4981272a02f85884e1aa02971f605e04adb9a57916eef"
+            alt="Coins"
+            fill
+            style={{
+              objectFit: "contain",
+              padding: "8px",
+            }}
+          />
+        </Box>
+      </Box>
+
+      {/* Coin Purchase Options */}
+      <Box>
         <Box
           sx={{
             display: "flex",
@@ -71,8 +124,17 @@ export default async function ProtectedPage() {
             pb: 2,
           }}
         >
-          {/* ...existing coin cards... */}
-          <Card sx={CardStyling}>
+          <Card
+            sx={{
+              padding: "0px 2.5%",
+              width: "300px",
+              height: "100%",
+              boxSizing: "border-box",
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "space-between",
+            }}
+          >
             <CardActionArea>
               <CardMedia
                 component="img"
@@ -88,7 +150,17 @@ export default async function ProtectedPage() {
               </CardContent>
             </CardActionArea>
           </Card>
-          <Card sx={CardStyling}>
+          <Card
+            sx={{
+              padding: "0px 2.5%",
+              width: "300px",
+              height: "100%",
+              boxSizing: "border-box",
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "space-between",
+            }}
+          >
             <CardActionArea>
               <CardMedia
                 component="img"
@@ -104,7 +176,17 @@ export default async function ProtectedPage() {
               </CardContent>
             </CardActionArea>
           </Card>
-          <Card sx={CardStyling}>
+          <Card
+            sx={{
+              padding: "0px 2.5%",
+              width: "300px",
+              height: "100%",
+              boxSizing: "border-box",
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "space-between",
+            }}
+          >
             <CardActionArea>
               <CardMedia
                 component="img"
@@ -120,7 +202,17 @@ export default async function ProtectedPage() {
               </CardContent>
             </CardActionArea>
           </Card>
-          <Card sx={CardStyling}>
+          <Card
+            sx={{
+              padding: "0px 2.5%",
+              width: "300px",
+              height: "100%",
+              boxSizing: "border-box",
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "space-between",
+            }}
+          >
             <CardActionArea>
               <CardMedia
                 component="img"
@@ -136,7 +228,17 @@ export default async function ProtectedPage() {
               </CardContent>
             </CardActionArea>
           </Card>
-          <Card sx={CardStyling}>
+          <Card
+            sx={{
+              padding: "0px 2.5%",
+              width: "300px",
+              height: "100%",
+              boxSizing: "border-box",
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "space-between",
+            }}
+          >
             <CardActionArea>
               <CardMedia
                 component="img"
@@ -191,7 +293,7 @@ export default async function ProtectedPage() {
               textShadow: "1px 1px 2px rgba(0,0,0,0.3)",
             }}
           >
-            Finger lickin' good deals • Exclusive KFC rewards
+            Finger lickin&apos; good deals • Exclusive KFC rewards
           </Typography>
         </Box>
         <Box
