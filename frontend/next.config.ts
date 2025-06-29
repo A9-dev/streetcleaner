@@ -23,6 +23,12 @@ const nextConfig: NextConfig = {
         port: '',
         pathname: '/iu/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'jwjeuqbkksddragbdbue.supabase.co',
+        port: '',
+        pathname: '/**',
+      },
     ],
   },
   async rewrites() {
@@ -33,6 +39,7 @@ const nextConfig: NextConfig = {
       },
     ];
   },
+
 };
 
 export default nextConfig;
