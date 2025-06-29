@@ -282,12 +282,13 @@ export const PinInfoModal: React.FC<PinInfoModalProps> = ({
             {selectedPin.title}
           </Typography>
 
+
           {/* Display image if available */}
           {selectedPin.imageUrl && (
             <Box
               sx={{
                 width: "100%",
-                height: 200,
+                height: 400,
                 borderRadius: 2,
                 overflow: "hidden",
                 mb: 2,
