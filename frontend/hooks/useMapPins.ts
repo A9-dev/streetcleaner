@@ -3,72 +3,8 @@
  */
 "use client";
 
-import { useState, useCallback } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { MapPinData } from "../components/map-pin";
-
-// Sample pins around London center
-const initialMapPins: MapPinData[] = [
-  {
-    id: 1,
-    position: { lat: 51.5074, lng: -0.1278 },
-    title: "London Eye Area",
-    description: "Litter accumulation around tourist destination",
-    job_type: "litter",
-    bounty: 150,
-    imageUrl:
-      "https://i.ibb.co/5gbSh7nb/image.png",
-  },
-  {
-    id: 2,
-    position: { lat: 51.5085, lng: -0.1257 },
-    title: "Westminster Bridge",
-    description: "Graffiti reported on bridge infrastructure",
-    job_type: "graffiti",
-    bounty: 300,
-    imageUrl:
-      "https://plus.unsplash.com/premium_photo-1661391282637-63d052b71fb5?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-  },
-  {
-    id: 3,
-    position: { lat: 51.5063, lng: -0.1299 },
-    title: "Parliament Square",
-    description: "Fly-tipping incident near government buildings",
-    job_type: "flytipping",
-    bounty: 500,
-    imageUrl:
-      "https://images.unsplash.com/photo-1614158056258-d339e5e72380?q=80&w=710&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-  },
-  {
-    id: 4,
-    position: { lat: 51.5045, lng: -0.1285 },
-    title: "Victoria Embankment",
-    description: "Damaged street infrastructure requiring attention",
-    job_type: "infrastructure",
-    bounty: 250,
-    imageUrl:
-      "https://images.unsplash.com/photo-1617252820855-a829ba1babe7?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-  },
-  {
-    id: 5,
-    position: { lat: 51.5095, lng: -0.1235 },
-    title: "Covent Garden Market",
-    description: "Vandalism reported on market property",
-    job_type: "vandalism",
-    bounty: 200,
-    imageUrl:
-      "https://images.unsplash.com/photo-1590962677235-26b1195bb96e?q=80&w=736&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-  },
-  {
-    id: 6,
-    position: { lat: 51.5055, lng: -0.1315 },
-    title: "St. James's Park",
-    description: "General maintenance issue requiring classification",
-    job_type: "other",
-    bounty: 100,
-    imageUrl:
-      "https://images.unsplash.com/photo-1533575988569-5d0786b24c67?q=80&w=1477&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-  },
-];
 
 export interface UseMapPinsReturn {
   pins: MapPinData[];
@@ -81,8 +17,34 @@ export interface UseMapPinsReturn {
 }
 
 export const useMapPins = (): UseMapPinsReturn => {
-  const [pins, setPins] = useState<MapPinData[]>(initialMapPins);
+  const [pins, setPins] = useState<MapPinData[]>([]);
   const [selectedPin, setSelectedPin] = useState<MapPinData | null>(null);
+
+
+  useEffect(() => {
+    const fetchPins = async () => {
+      const res = await fetch('/api/v1/issues/jobs');
+      const jobs = await res.json();
+      console.log("Received jobs: ", jobs);
+
+      const mapped = jobs.map((job: any, i: number) => ({
+        id: i + 1,
+        position: {
+          lat: +job.location.lat,
+          lng: +job.location.lon,
+        },
+        title: job.job_type.charAt(0).toUpperCase() + job.job_type.slice(1),
+        description: job.description,
+        job_type: job.job_type,
+        bounty: job.bounty ?? 100,
+        imageUrl: job.image,
+      }));
+
+      setPins(mapped);
+    };
+
+    fetchPins();
+  }, []);
 
   const handleMarkerClick = useCallback((pin: MapPinData) => {
     setSelectedPin(pin);
@@ -101,7 +63,7 @@ export const useMapPins = (): UseMapPinsReturn => {
 
   const removePin = useCallback((id: number) => {
     setPins((prevPins) => prevPins.filter((pin) => pin.id !== id));
-    setSelectedPin((prevSelected) => 
+    setSelectedPin((prevSelected) =>
       prevSelected?.id === id ? null : prevSelected
     );
   }, []);
@@ -113,8 +75,8 @@ export const useMapPins = (): UseMapPinsReturn => {
       )
     );
     setSelectedPin((prevSelected) =>
-      prevSelected?.id === id 
-        ? { ...prevSelected, ...updates } 
+      prevSelected?.id === id
+        ? { ...prevSelected, ...updates }
         : prevSelected
     );
   }, []);
