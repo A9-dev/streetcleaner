@@ -9,7 +9,6 @@ import {
   Typography,
   Box,
   Chip,
-  Grid,
   Card,
   CardContent,
 } from "@mui/material";
@@ -91,9 +90,24 @@ const TeamStats = () => {
       >
         Team Standings
       </Typography>
-      <Grid container spacing={4} justifyContent="center">
+      <Box 
+        sx={{ 
+          display: "flex", 
+          flexWrap: "wrap", 
+          gap: 4, 
+          justifyContent: "center",
+          mt: 4 
+        }}
+      >
         {teamStats.map((team, index) => (
-          <Grid item xs={12} md={3} key={team.name} sx={{ display: "flex" }}>
+          <Box 
+            key={team.name} 
+            sx={{ 
+              flex: "1 1 300px", 
+              maxWidth: "400px", 
+              display: "flex" 
+            }}
+          >
             <Card
               elevation={4}
               sx={{
@@ -126,9 +140,9 @@ const TeamStats = () => {
                 </Typography>
               </CardContent>
             </Card>
-          </Grid>
+          </Box>
         ))}
-      </Grid>
+      </Box>
     </Box>
   );
 };
