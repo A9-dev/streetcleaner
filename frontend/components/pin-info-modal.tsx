@@ -172,7 +172,7 @@ export const PinInfoModal: React.FC<PinInfoModalProps> = ({
         <Box
           sx={{
             width: "100%",
-            height: 200,
+            height: 400,
             borderRadius: 2,
             overflow: "hidden",
             mb: 2,
