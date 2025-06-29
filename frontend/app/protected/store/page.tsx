@@ -7,7 +7,6 @@ import {
   Card,
   CardActionArea,
   CardMedia,
-  Divider,
   CardActions,
   Button,
 } from "@mui/material";
