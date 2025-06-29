@@ -3,7 +3,7 @@
  */
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Box,
   IconButton,
@@ -11,11 +11,14 @@ import {
   TextField,
   Button,
   Alert,
+  LinearProgress,
 } from "@mui/material";
 import { Close } from "@mui/icons-material";
 import Image from "next/image";
 import { MapPinData, JobType } from "./map-pin";
 import { useUserPoints } from "@/hooks/useUserPoints";
+import { createClient } from "@/lib/supabase/client";
+import type { User } from "@supabase/supabase-js";
 
 interface PinInfoModalProps {
   selectedPin: MapPinData | null;
@@ -85,7 +88,45 @@ export const PinInfoModal: React.FC<PinInfoModalProps> = ({
 }) => {
   const [bountyAmount, setBountyAmount] = useState<string>("");
   const [error, setError] = useState<string>("");
+  const [user, setUser] = useState<User | null>(null);
+  const [currentPage, setCurrentPage] = useState<
+    "info" | "cleaned" | "validating" | "success"
+  >("info");
+  const [selectedImage, setSelectedImage] = useState<File | null>(null);
+  const [validationProgress, setValidationProgress] = useState<number>(0);
   const { userPoints, addPointsToBounty } = useUserPoints();
+
+  useEffect(() => {
+    const getUser = async () => {
+      const supabase = createClient();
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
+      setUser(user);
+    };
+
+    getUser();
+
+    const supabase = createClient();
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((event, session) => {
+      setUser(session?.user ?? null);
+    });
+
+    return () => subscription.unsubscribe();
+  }, []);
+
+  // Reset modal state when a new pin is selected or modal opens
+  useEffect(() => {
+    if (selectedPin) {
+      setCurrentPage("info");
+      setSelectedImage(null);
+      setValidationProgress(0);
+      setError("");
+      setBountyAmount("");
+    }
+  }, [selectedPin]); // Reset when selectedPin changes
 
   if (!selectedPin) return null;
 
@@ -120,6 +161,51 @@ export const PinInfoModal: React.FC<PinInfoModalProps> = ({
     }
   };
 
+  const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      setSelectedImage(file);
+    }
+  };
+
+  const handleCleanedSubmit = () => {
+    if (selectedImage) {
+      console.log("Image data:", {
+        file: selectedImage,
+        name: selectedImage.name,
+        size: selectedImage.size,
+        type: selectedImage.type,
+        lastModified: selectedImage.lastModified,
+      });
+
+      // Start validation process
+      setCurrentPage("validating");
+      setValidationProgress(0);
+
+      // Simulate AI validation with progress updates
+      const progressInterval = setInterval(() => {
+        setValidationProgress((prev) => {
+          if (prev >= 100) {
+            clearInterval(progressInterval);
+            setTimeout(() => {
+              setCurrentPage("success");
+            }, 500); // Small delay before showing success
+            return 100;
+          }
+          return prev + 10; // Increase by 10% every interval
+        });
+      }, 300); // Update every 300ms for a 3-second total animation
+    } else {
+      console.log("No image selected");
+    }
+  };
+
+  const handleBackToInfo = () => {
+    setCurrentPage("info");
+    setSelectedImage(null);
+    setValidationProgress(0);
+  };
+
   return (
     <Box
       sx={{
@@ -139,11 +225,37 @@ export const PinInfoModal: React.FC<PinInfoModalProps> = ({
         gap: 2,
       }}
     >
-      <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+        }}
+      >
+        {(currentPage === "cleaned" ||
+          currentPage === "validating" ||
+          currentPage === "success") && (
+          <IconButton
+            onClick={handleBackToInfo}
+            size="small"
+            aria-label="Back"
+            disabled={currentPage === "validating"}
+            sx={{
+              color: "text.secondary",
+              "&:hover": {
+                bgcolor: "action.hover",
+              },
+            }}
+          >
+            ←
+          </IconButton>
+        )}
+        {currentPage === "info" && <Box />}
         <IconButton
           onClick={onClose}
           size="small"
           aria-label="Close"
+          disabled={currentPage === "validating"}
           sx={{
             color: "text.secondary",
             "&:hover": {
@@ -155,139 +267,361 @@ export const PinInfoModal: React.FC<PinInfoModalProps> = ({
         </IconButton>
       </Box>
 
-      <Typography
-        variant="h4"
-        component="h3"
-        sx={{
-          fontWeight: "bold",
-          mb: 1,
-          color: "text.primary",
-        }}
-      >
-        {selectedPin.title}
-      </Typography>
-
-      {/* Display image if available */}
-      {selectedPin.imageUrl && (
-        <Box
-          sx={{
-            width: "100%",
-            height: 400,
-            borderRadius: 2,
-            overflow: "hidden",
-            mb: 2,
-            position: "relative",
-          }}
-        >
-          <Image
-            src={selectedPin.imageUrl}
-            alt={selectedPin.title}
-            fill
-            style={{
-              objectFit: "cover",
-            }}
-            sizes="(max-width: 500px) 100vw, 500px"
-          />
-        </Box>
-      )}
-
-      <Typography
-        variant="body1"
-        sx={{
-          color: "text.secondary",
-          lineHeight: 1.6,
-          mb: 2,
-        }}
-      >
-        {selectedPin.description}
-      </Typography>
-
-      <Box
-        sx={{
-          display: "inline-block",
-          alignSelf: "flex-start",
-          px: 2,
-          py: 1,
-          borderRadius: 1,
-          fontSize: "0.875rem",
-          fontWeight: 500,
-          textTransform: "capitalize",
-          ...jobTypeColors,
-          mb: 2,
-        }}
-      >
-        {formatJobType(selectedPin.job_type)}
-      </Box>
-
-      {/* Bounty Section */}
-      <Box
-        sx={{
-          border: "1px solid",
-          borderColor: "grey.300",
-          borderRadius: 2,
-          p: 2,
-          mb: 2,
-        }}
-      >
-        <Typography variant="h6" sx={{ mb: 1, fontWeight: "bold" }}>
-          Current Bounty
-        </Typography>
-        <Box sx={{ display: "flex", alignItems: "center", gap: 1, mb: 2 }}>
-          <span role="img" aria-label="points">
-            🪙
-          </span>
+      {currentPage === "info" ? (
+        // Info Page Content
+        <>
           <Typography
-            variant="h5"
-            sx={{ fontWeight: "bold", color: "primary.main" }}
-          >
-            {selectedPin.bounty.toLocaleString()}
-          </Typography>
-          <Typography variant="body2" color="text.secondary">
-            points
-          </Typography>
-        </Box>
-
-        <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
-          Add points to increase the bounty for this job
-        </Typography>
-
-        {error && (
-          <Alert severity="error" sx={{ mb: 2 }}>
-            {error}
-          </Alert>
-        )}
-
-        <Box sx={{ display: "flex", gap: 1, alignItems: "flex-end" }}>
-          <TextField
-            label="Points to add"
-            type="number"
-            value={bountyAmount}
-            onChange={(e) => {
-              setBountyAmount(e.target.value);
-              if (error) setError(""); // Clear error when user starts typing
+            variant="h4"
+            component="h3"
+            sx={{
+              fontWeight: "bold",
+              mb: 1,
+              color: "text.primary",
             }}
-            size="small"
-            sx={{ flexGrow: 1 }}
-            inputProps={{ min: 1, max: userPoints }}
-          />
+          >
+            {selectedPin.title}
+          </Typography>
+
+
+          {/* Display image if available */}
+          {selectedPin.imageUrl && (
+            <Box
+              sx={{
+                width: "100%",
+                height: 400,
+                borderRadius: 2,
+                overflow: "hidden",
+                mb: 2,
+                position: "relative",
+              }}
+            >
+              <Image
+                src={selectedPin.imageUrl}
+                alt={selectedPin.title}
+                fill
+                style={{
+                  objectFit: "cover",
+                }}
+                sizes="(max-width: 500px) 100vw, 500px"
+              />
+            </Box>
+          )}
+
+          <Typography
+            variant="body1"
+            sx={{
+              color: "text.secondary",
+              lineHeight: 1.6,
+              mb: 2,
+            }}
+          >
+            {selectedPin.description}
+          </Typography>
+
+          <Box
+            sx={{
+              display: "inline-block",
+              alignSelf: "flex-start",
+              px: 2,
+              py: 1,
+              borderRadius: 1,
+              fontSize: "0.875rem",
+              fontWeight: 500,
+              textTransform: "capitalize",
+              ...jobTypeColors,
+              mb: 2,
+            }}
+          >
+            {formatJobType(selectedPin.job_type)}
+          </Box>
+
+          {/* Bounty Section - Only show if user is authenticated */}
+          {user && (
+            <Box
+              sx={{
+                border: "1px solid",
+                borderColor: "grey.300",
+                borderRadius: 2,
+                p: 2,
+                mb: 2,
+              }}
+            >
+              <Typography variant="h6" sx={{ mb: 1, fontWeight: "bold" }}>
+                Current Bounty
+              </Typography>
+              <Box
+                sx={{ display: "flex", alignItems: "center", gap: 1, mb: 2 }}
+              >
+                <span role="img" aria-label="points">
+                  🪙
+                </span>
+                <Typography
+                  variant="h5"
+                  sx={{ fontWeight: "bold", color: "primary.main" }}
+                >
+                  {selectedPin.bounty.toLocaleString()}
+                </Typography>
+                <Typography variant="body2" color="text.secondary">
+                  points
+                </Typography>
+              </Box>
+
+              <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+                Add points to increase the bounty for this job
+              </Typography>
+
+              {error && (
+                <Alert severity="error" sx={{ mb: 2 }}>
+                  {error}
+                </Alert>
+              )}
+
+              <Box sx={{ display: "flex", gap: 1, alignItems: "flex-end" }}>
+                <TextField
+                  label="Points to add"
+                  type="number"
+                  value={bountyAmount}
+                  onChange={(e) => {
+                    setBountyAmount(e.target.value);
+                    if (error) setError(""); // Clear error when user starts typing
+                  }}
+                  size="small"
+                  sx={{ flexGrow: 1 }}
+                  inputProps={{ min: 1, max: userPoints }}
+                />
+                <Button
+                  variant="contained"
+                  onClick={handleAddToBounty}
+                  disabled={!bountyAmount || userPoints === 0}
+                  sx={{ height: "40px" }}
+                >
+                  Add
+                </Button>
+              </Box>
+
+              <Typography
+                variant="caption"
+                color="text.secondary"
+                sx={{ mt: 1, display: "block" }}
+              >
+                Available points: {userPoints.toLocaleString()}
+              </Typography>
+            </Box>
+          )}
+
+          {/* Cleaned It Button */}
+          <Button
+            variant="outlined"
+            onClick={() => setCurrentPage("cleaned")}
+            sx={{
+              mt: 2,
+              alignSelf: "center",
+              px: 4,
+              py: 1.5,
+              fontSize: "1rem",
+              fontWeight: "bold",
+            }}
+          >
+            Cleaned It? 🧹
+          </Button>
+        </>
+      ) : currentPage === "cleaned" ? (
+        // Cleaned Page Content
+        <>
+          <Typography
+            variant="h4"
+            component="h3"
+            sx={{
+              fontWeight: "bold",
+              mb: 1,
+              color: "text.primary",
+            }}
+          >
+            Submit Completion
+          </Typography>
+
+          <Typography
+            variant="body1"
+            sx={{
+              color: "text.secondary",
+              lineHeight: 1.6,
+              mb: 3,
+            }}
+          >
+            Upload a photo showing the cleaned area to confirm completion of:{" "}
+            <strong>{selectedPin.title}</strong>
+          </Typography>
+
+          <Box
+            sx={{
+              border: "2px dashed",
+              borderColor: "grey.300",
+              borderRadius: 2,
+              p: 3,
+              textAlign: "center",
+              mb: 3,
+              backgroundColor: "grey.50",
+            }}
+          >
+            <input
+              type="file"
+              accept="image/*"
+              onChange={handleImageChange}
+              style={{ display: "none" }}
+              id="image-upload"
+            />
+            <label htmlFor="image-upload">
+              <Button variant="outlined" component="span" sx={{ mb: 2 }}>
+                Choose Image
+              </Button>
+            </label>
+            {selectedImage && (
+              <Typography variant="body2" color="text.secondary">
+                Selected: {selectedImage.name}
+              </Typography>
+            )}
+          </Box>
+
           <Button
             variant="contained"
-            onClick={handleAddToBounty}
-            disabled={!bountyAmount || userPoints === 0}
-            sx={{ height: "40px" }}
+            onClick={handleCleanedSubmit}
+            disabled={!selectedImage}
+            sx={{
+              alignSelf: "center",
+              px: 4,
+              py: 1.5,
+              fontSize: "1rem",
+              fontWeight: "bold",
+            }}
           >
-            Add
+            Submit Completion
           </Button>
-        </Box>
+        </>
+      ) : currentPage === "validating" ? (
+        // Validation Page Content
+        <>
+          <Typography
+            variant="h4"
+            component="h3"
+            sx={{
+              fontWeight: "bold",
+              mb: 1,
+              color: "text.primary",
+              textAlign: "center",
+            }}
+          >
+            AI Validation in Progress
+          </Typography>
 
-        <Typography
-          variant="caption"
-          color="text.secondary"
-          sx={{ mt: 1, display: "block" }}
-        >
-          Available points: {userPoints.toLocaleString()}
-        </Typography>
-      </Box>
+          <Typography
+            variant="body1"
+            sx={{
+              color: "text.secondary",
+              lineHeight: 1.6,
+              mb: 4,
+              textAlign: "center",
+            }}
+          >
+            Our AI is analyzing your submission to verify the cleanup...
+          </Typography>
+
+          <Box sx={{ width: "100%", mb: 2 }}>
+            <Typography variant="body2" sx={{ mb: 1, textAlign: "center" }}>
+              Analyzing image... {Math.round(validationProgress)}%
+            </Typography>
+            <LinearProgress variant="determinate" value={validationProgress} />
+          </Box>
+
+          <Box sx={{ textAlign: "center", fontSize: "3rem", mb: 2 }}>🤖</Box>
+        </>
+      ) : (
+        // Success Page Content
+        <>
+          <Typography
+            variant="h4"
+            component="h3"
+            sx={{
+              fontWeight: "bold",
+              mb: 1,
+              color: "success.main",
+              textAlign: "center",
+            }}
+          >
+            Validation Successful! ✅
+          </Typography>
+
+          <Typography
+            variant="body1"
+            sx={{
+              color: "text.secondary",
+              lineHeight: 1.6,
+              mb: 3,
+              textAlign: "center",
+            }}
+          >
+            Great job! Our AI has verified that{" "}
+            <strong>{selectedPin.title}</strong> has been successfully cleaned.
+          </Typography>
+
+          <Box
+            sx={{
+              border: "2px solid",
+              borderColor: "success.main",
+              borderRadius: 2,
+              p: 3,
+              textAlign: "center",
+              mb: 3,
+              backgroundColor: "#E8F5E8",
+            }}
+          >
+            <Typography
+              variant="h6"
+              sx={{ color: "success.dark", mb: 1, fontWeight: "bold" }}
+            >
+              Bounty Awarded!
+            </Typography>
+            <Box
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                gap: 1,
+              }}
+            >
+              <span role="img" aria-label="points">
+                🪙
+              </span>
+              <Typography
+                variant="h4"
+                sx={{ fontWeight: "bold", color: "#1B5E20" }}
+              >
+                {selectedPin.bounty.toLocaleString()}
+              </Typography>
+              <Typography
+                variant="body1"
+                sx={{ color: "#1B5E20", fontWeight: "bold" }}
+              >
+                points
+              </Typography>
+            </Box>
+          </Box>
+
+          <Button
+            variant="contained"
+            color="success"
+            onClick={onClose}
+            sx={{
+              alignSelf: "center",
+              px: 4,
+              py: 1.5,
+              fontSize: "1rem",
+              fontWeight: "bold",
+            }}
+          >
+            Awesome! 🎉
+          </Button>
+        </>
+      )}
     </Box>
   );
 };

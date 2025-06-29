@@ -150,7 +150,8 @@ const TeamStats = () => {
 export default function LeaderboardPage() {
   return (
     <Box sx={{ p: 3 }}>
-      <Typography variant="h4" component="h1" gutterBottom>
+      <TeamStats />
+      <Typography variant="h4" component="h1" gutterBottom sx={{ mt: 6 }}>
         Leaderboard
       </Typography>
       <Paper elevation={3}>
@@ -203,7 +204,6 @@ export default function LeaderboardPage() {
           </Table>
         </TableContainer>
       </Paper>
-      <TeamStats />
     </Box>
   );
 }

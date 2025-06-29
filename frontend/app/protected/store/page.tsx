@@ -8,6 +8,8 @@ import {
   CardActionArea,
   CardMedia,
   Divider,
+  CardActions,
+  Button,
 } from "@mui/material";
 import { createClient } from "@/lib/supabase/server";
 
@@ -149,6 +151,11 @@ export default async function ProtectedPage() {
                 <Typography variant="body2">£0.99</Typography>
               </CardContent>
             </CardActionArea>
+            <CardActions>
+              <Button size="small" color="primary" sx={{ fontWeight: 'bold', backgroundColor: 'rgba(25, 118, 210, 0.08)' }}>
+                Buy
+              </Button>
+            </CardActions>
           </Card>
           <Card
             sx={{
@@ -175,6 +182,11 @@ export default async function ProtectedPage() {
                 <Typography variant="body2">£2.99</Typography>
               </CardContent>
             </CardActionArea>
+            <CardActions>
+              <Button size="small" color="primary" sx={{ fontWeight: 'bold', backgroundColor: 'rgba(25, 118, 210, 0.08)' }}>
+                Buy
+              </Button>
+            </CardActions>
           </Card>
           <Card
             sx={{
@@ -201,6 +213,11 @@ export default async function ProtectedPage() {
                 <Typography variant="body2">£5.99</Typography>
               </CardContent>
             </CardActionArea>
+            <CardActions>
+              <Button size="small" color="primary" sx={{ fontWeight: 'bold', backgroundColor: 'rgba(25, 118, 210, 0.08)' }}>
+                Buy
+              </Button>
+            </CardActions>
           </Card>
           <Card
             sx={{
@@ -227,6 +244,11 @@ export default async function ProtectedPage() {
                 <Typography variant="body2">£9.99</Typography>
               </CardContent>
             </CardActionArea>
+            <CardActions>
+              <Button size="small" color="primary" sx={{ fontWeight: 'bold', backgroundColor: 'rgba(25, 118, 210, 0.08)' }}>
+                Buy
+              </Button>
+            </CardActions>
           </Card>
           <Card
             sx={{
@@ -253,9 +275,140 @@ export default async function ProtectedPage() {
                 <Typography variant="body2">£99.99</Typography>
               </CardContent>
             </CardActionArea>
+            <CardActions>
+              <Button size="small" color="primary" sx={{ fontWeight: 'bold', backgroundColor: 'rgba(25, 118, 210, 0.08)' }}>
+                Buy
+              </Button>
+            </CardActions>
           </Card>
         </Box>
       </Box>
+
+      {/* Patagonia Banner */}
+      <Box
+        sx={{
+          width: "100%",
+          height: 150,
+          borderRadius: 3,
+          background: "linear-gradient(135deg, #66BB6A 0%, #388E3C 100%)",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          p: 3,
+          mb: 2,
+          boxShadow: "0 4px 20px rgba(0, 0, 0, 0.1)",
+        }}
+      >
+        <Box sx={{ flex: 1 }}>
+          <Typography
+            variant="h3"
+            component="h2"
+            sx={{
+              color: "white",
+              fontWeight: "bold",
+              mb: 1,
+              textShadow: "2px 2px 4px rgba(0,0,0,0.3)",
+            }}
+          >
+            Patagonia Gift Cards
+          </Typography>
+          <Typography
+            variant="h6"
+            sx={{
+              color: "white",
+              opacity: 0.9,
+              textShadow: "1px 1px 2px rgba(0,0,0,0.3)",
+            }}
+          >
+            Redeem your coins for Patagonia gift cards!
+          </Typography>
+        </Box>
+        <Box
+          sx={{
+            width: 120,
+            height: 120,
+            borderRadius: 2,
+            overflow: "hidden",
+            backgroundColor: "white",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            boxShadow: "0 2px 10px rgba(0,0,0,0.2)",
+            position: "relative",
+          }}
+        >
+          <Image
+            src="https://worldvectorlogo.com/logos/patagonia.svg"
+            alt="Patagonia Logo"
+            fill
+            style={{
+              objectFit: "contain",
+              padding: "8px",
+            }}
+          />
+        </Box>
+      </Box>
+
+      {/* Patagonia Products Section */}
+      <Box>
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "center",
+            alignItems: "stretch",
+            flexWrap: "nowrap",
+            gap: 3,
+            overflowX: "auto",
+            pb: 2,
+          }}
+        >
+          <Card sx={ProductCardStyling}>
+            <CardActionArea>
+              <CardMedia
+                component="img"
+                height="140"
+                width="140"
+                image="https://worldvectorlogo.com/logos/patagonia.svg"
+                alt="Patagonia Gift Card"
+              />
+              <CardContent>
+                <Typography gutterBottom variant="h6" component="div">
+                  £10 Patagonia Gift Card
+                </Typography>
+                <Typography variant="body2">1,000 coins</Typography>
+              </CardContent>
+            </CardActionArea>
+            <CardActions>
+              <Button size="small" color="primary" sx={{ fontWeight: 'bold', backgroundColor: 'rgba(25, 118, 210, 0.08)' }}>
+                Buy
+              </Button>
+            </CardActions>
+          </Card>
+          <Card sx={ProductCardStyling}>
+            <CardActionArea>
+              <CardMedia
+                component="img"
+                height="140"
+                width="140"
+                image="https://worldvectorlogo.com/logos/patagonia.svg"
+                alt="Patagonia Gift Card"
+              />
+              <CardContent>
+                <Typography gutterBottom variant="h6" component="div">
+                  £25 Patagonia Gift Card
+                </Typography>
+                <Typography variant="body2">2,500 coins</Typography>
+              </CardContent>
+            </CardActionArea>
+            <CardActions>
+              <Button size="small" color="primary" sx={{ fontWeight: 'bold', backgroundColor: 'rgba(25, 118, 210, 0.08)' }}>
+                Buy
+              </Button>
+            </CardActions>
+          </Card>
+          </Box>
+          </Box>
 
       {/* KFC Banner */}
       <Box
@@ -352,6 +505,11 @@ export default async function ProtectedPage() {
                 <Typography variant="body2">100 coins</Typography>
               </CardContent>
             </CardActionArea>
+            <CardActions>
+              <Button size="small" color="primary" sx={{ fontWeight: 'bold', backgroundColor: 'rgba(25, 118, 210, 0.08)' }}>
+                Buy
+              </Button>
+            </CardActions>
           </Card>
           <Card sx={ProductCardStyling}>
             <CardActionArea>
@@ -369,6 +527,11 @@ export default async function ProtectedPage() {
                 <Typography variant="body2">250 coins</Typography>
               </CardContent>
             </CardActionArea>
+            <CardActions>
+              <Button size="small" color="primary" sx={{ fontWeight: 'bold', backgroundColor: 'rgba(25, 118, 210, 0.08)' }}>
+                Buy
+              </Button>
+            </CardActions>
           </Card>
           <Card sx={ProductCardStyling}>
             <CardActionArea>
@@ -386,6 +549,11 @@ export default async function ProtectedPage() {
                 <Typography variant="body2">400 coins</Typography>
               </CardContent>
             </CardActionArea>
+            <CardActions>
+              <Button size="small" color="primary" sx={{ fontWeight: 'bold', backgroundColor: 'rgba(25, 118, 210, 0.08)' }}>
+                Buy
+              </Button>
+            </CardActions>
           </Card>
           <Card sx={ProductCardStyling}>
             <CardActionArea>
@@ -403,6 +571,11 @@ export default async function ProtectedPage() {
                 <Typography variant="body2">600 coins</Typography>
               </CardContent>
             </CardActionArea>
+            <CardActions>
+              <Button size="small" color="primary" sx={{ fontWeight: 'bold', backgroundColor: 'rgba(25, 118, 210, 0.08)' }}>
+                Buy
+              </Button>
+            </CardActions>
           </Card>
           <Card sx={ProductCardStyling}>
             <CardActionArea>
@@ -420,6 +593,11 @@ export default async function ProtectedPage() {
                 <Typography variant="body2">800 coins</Typography>
               </CardContent>
             </CardActionArea>
+            <CardActions>
+              <Button size="small" color="primary" sx={{ fontWeight: 'bold', backgroundColor: 'rgba(25, 118, 210, 0.08)' }}>
+                Buy
+              </Button>
+            </CardActions>
           </Card>
         </Box>
       </Box>
@@ -461,6 +639,11 @@ export default async function ProtectedPage() {
                 <Typography variant="body2">15,000 coins</Typography>
               </CardContent>
             </CardActionArea>
+            <CardActions>
+              <Button size="small" color="primary" sx={{ fontWeight: 'bold', backgroundColor: 'rgba(25, 118, 210, 0.08)' }}>
+                Buy
+              </Button>
+            </CardActions>
           </Card>
           <Card sx={ProductCardStyling}>
             <CardActionArea>
@@ -478,6 +661,11 @@ export default async function ProtectedPage() {
                 <Typography variant="body2">1,000 coins</Typography>
               </CardContent>
             </CardActionArea>
+            <CardActions>
+              <Button size="small" color="primary" sx={{ fontWeight: 'bold', backgroundColor: 'rgba(25, 118, 210, 0.08)' }}>
+                Buy
+              </Button>
+            </CardActions>
           </Card>
           <Card sx={ProductCardStyling}>
             <CardActionArea>
@@ -495,6 +683,11 @@ export default async function ProtectedPage() {
                 <Typography variant="body2">1,500 coins</Typography>
               </CardContent>
             </CardActionArea>
+            <CardActions>
+              <Button size="small" color="primary" sx={{ fontWeight: 'bold', backgroundColor: 'rgba(25, 118, 210, 0.08)' }}>
+                Buy
+              </Button>
+            </CardActions>
           </Card>
         </Box>
       </Box>
