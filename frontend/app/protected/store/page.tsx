@@ -1,4 +1,5 @@
 import { redirect } from "next/navigation";
+import Image from "next/image";
 import {
   Box,
   Typography,
@@ -70,6 +71,7 @@ export default async function ProtectedPage() {
             pb: 2,
           }}
         >
+          {/* ...existing coin cards... */}
           <Card sx={CardStyling}>
             <CardActionArea>
               <CardMedia
@@ -153,6 +155,172 @@ export default async function ProtectedPage() {
         </Box>
       </Box>
 
+      {/* KFC Banner */}
+      <Box
+        sx={{
+          width: "100%",
+          height: 150,
+          borderRadius: 3,
+          background: "linear-gradient(135deg, #FF6B6B 0%, #FF5722 100%)",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          p: 3,
+          mb: 2,
+          boxShadow: "0 4px 20px rgba(255, 87, 34, 0.3)",
+        }}
+      >
+        <Box sx={{ flex: 1 }}>
+          <Typography
+            variant="h3"
+            component="h2"
+            sx={{
+              color: "white",
+              fontWeight: "bold",
+              mb: 1,
+              textShadow: "2px 2px 4px rgba(0,0,0,0.3)",
+            }}
+          >
+            KFC Store
+          </Typography>
+          <Typography
+            variant="h6"
+            sx={{
+              color: "white",
+              opacity: 0.9,
+              textShadow: "1px 1px 2px rgba(0,0,0,0.3)",
+            }}
+          >
+            Finger lickin' good deals • Exclusive KFC rewards
+          </Typography>
+        </Box>
+        <Box
+          sx={{
+            width: 120,
+            height: 120,
+            borderRadius: 2,
+            overflow: "hidden",
+            backgroundColor: "white",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            boxShadow: "0 2px 10px rgba(0,0,0,0.2)",
+            position: "relative",
+          }}
+        >
+          <Image
+            src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Flogos-world.net%2Fwp-content%2Fuploads%2F2020%2F04%2FKFC-Logo.png&f=1&nofb=1&ipt=26f00bca0e2f4ae635aeff681264281c284b3a69faf367c03c6494f6f93c3aed"
+            alt="KFC Logo"
+            fill
+            style={{
+              objectFit: "contain",
+              padding: "8px",
+            }}
+          />
+        </Box>
+      </Box>
+
+      {/* KFC Products Section */}
+      <Box>
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "center",
+            alignItems: "stretch",
+            flexWrap: "nowrap",
+            gap: 3,
+            overflowX: "auto",
+            pb: 2,
+          }}
+        >
+          <Card sx={ProductCardStyling}>
+            <CardActionArea>
+              <CardMedia
+                component="img"
+                height="140"
+                width="140"
+                image="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Flogos-world.net%2Fwp-content%2Fuploads%2F2020%2F04%2FKFC-Logo.png&f=1&nofb=1&ipt=26f00bca0e2f4ae635aeff681264281c284b3a69faf367c03c6494f6f93c3aed"
+                alt="KFC logo"
+              />
+              <CardContent>
+                <Typography gutterBottom variant="h6" component="div">
+                  KFC 5% Discount
+                </Typography>
+                <Typography variant="body2">100 coins</Typography>
+              </CardContent>
+            </CardActionArea>
+          </Card>
+          <Card sx={ProductCardStyling}>
+            <CardActionArea>
+              <CardMedia
+                component="img"
+                height="140"
+                width="140"
+                image="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Flogos-world.net%2Fwp-content%2Fuploads%2F2020%2F04%2FKFC-Logo.png&f=1&nofb=1&ipt=26f00bca0e2f4ae635aeff681264281c284b3a69faf367c03c6494f6f93c3aed"
+                alt="KFC logo"
+              />
+              <CardContent>
+                <Typography gutterBottom variant="h6" component="div">
+                  Free Original Recipe Piece
+                </Typography>
+                <Typography variant="body2">250 coins</Typography>
+              </CardContent>
+            </CardActionArea>
+          </Card>
+          <Card sx={ProductCardStyling}>
+            <CardActionArea>
+              <CardMedia
+                component="img"
+                height="140"
+                width="140"
+                image="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Flogos-world.net%2Fwp-content%2Fuploads%2F2020%2F04%2FKFC-Logo.png&f=1&nofb=1&ipt=26f00bca0e2f4ae635aeff681264281c284b3a69faf367c03c6494f6f93c3aed"
+                alt="KFC logo"
+              />
+              <CardContent>
+                <Typography gutterBottom variant="h6" component="div">
+                  KFC 10% Off Buckets
+                </Typography>
+                <Typography variant="body2">400 coins</Typography>
+              </CardContent>
+            </CardActionArea>
+          </Card>
+          <Card sx={ProductCardStyling}>
+            <CardActionArea>
+              <CardMedia
+                component="img"
+                height="140"
+                width="140"
+                image="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Flogos-world.net%2Fwp-content%2Fuploads%2F2020%2F04%2FKFC-Logo.png&f=1&nofb=1&ipt=26f00bca0e2f4ae635aeff681264281c284b3a69faf367c03c6494f6f93c3aed"
+                alt="KFC logo"
+              />
+              <CardContent>
+                <Typography gutterBottom variant="h6" component="div">
+                  Free Zinger Burger
+                </Typography>
+                <Typography variant="body2">600 coins</Typography>
+              </CardContent>
+            </CardActionArea>
+          </Card>
+          <Card sx={ProductCardStyling}>
+            <CardActionArea>
+              <CardMedia
+                component="img"
+                height="140"
+                width="140"
+                image="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Flogos-world.net%2Fwp-content%2Fuploads%2F2020%2F04%2FKFC-Logo.png&f=1&nofb=1&ipt=26f00bca0e2f4ae635aeff681264281c284b3a69faf367c03c6494f6f93c3aed"
+                alt="KFC logo"
+              />
+              <CardContent>
+                <Typography gutterBottom variant="h6" component="div">
+                  Family Feast 15% Off
+                </Typography>
+                <Typography variant="body2">800 coins</Typography>
+              </CardContent>
+            </CardActionArea>
+          </Card>
+        </Box>
+      </Box>
       {/* Divider */}
       <Divider sx={{ my: 4 }} />
 
@@ -175,23 +343,6 @@ export default async function ProtectedPage() {
             gap: 3,
           }}
         >
-          <Card sx={ProductCardStyling}>
-            <CardActionArea>
-              <CardMedia
-                component="img"
-                height="140"
-                width="140"
-                image="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Flogos-world.net%2Fwp-content%2Fuploads%2F2020%2F04%2FKFC-Logo.png&f=1&nofb=1&ipt=26f00bca0e2f4ae635aeff681264281c284b3a69faf367c03c6494f6f93c3aed"
-                alt="KFC logo"
-              />
-              <CardContent>
-                <Typography gutterBottom variant="h6" component="div">
-                  KFC 5% Discount
-                </Typography>
-                <Typography variant="body2">100 coins</Typography>
-              </CardContent>
-            </CardActionArea>
-          </Card>
           <Card sx={ProductCardStyling}>
             <CardActionArea>
               <CardMedia
