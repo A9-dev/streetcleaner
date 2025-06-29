@@ -28,4 +28,7 @@ class Job(BaseModel):
     image: HttpUrl
     location: GPSLocation
     status: JobStatus
-    staked_users: list[str]
+    resolver_id: str | None = None
+    proof_image: HttpUrl | None = None
+    validators: list[str] | None = None
+    staked_users: list[str] = []
