@@ -3,7 +3,7 @@
  */
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Box,
   IconButton,
@@ -16,6 +16,8 @@ import { Close } from "@mui/icons-material";
 import Image from "next/image";
 import { MapPinData, JobType } from "./map-pin";
 import { useUserPoints } from "@/hooks/useUserPoints";
+import { createClient } from "@/lib/supabase/client";
+import type { User } from "@supabase/supabase-js";
 
 interface PinInfoModalProps {
   selectedPin: MapPinData | null;
@@ -85,7 +87,29 @@ export const PinInfoModal: React.FC<PinInfoModalProps> = ({
 }) => {
   const [bountyAmount, setBountyAmount] = useState<string>("");
   const [error, setError] = useState<string>("");
+  const [user, setUser] = useState<User | null>(null);
   const { userPoints, addPointsToBounty } = useUserPoints();
+
+  useEffect(() => {
+    const getUser = async () => {
+      const supabase = createClient();
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
+      setUser(user);
+    };
+
+    getUser();
+
+    const supabase = createClient();
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((event, session) => {
+      setUser(session?.user ?? null);
+    });
+
+    return () => subscription.unsubscribe();
+  }, []);
 
   if (!selectedPin) return null;
 
@@ -219,75 +243,77 @@ export const PinInfoModal: React.FC<PinInfoModalProps> = ({
         {formatJobType(selectedPin.job_type)}
       </Box>
 
-      {/* Bounty Section */}
-      <Box
-        sx={{
-          border: "1px solid",
-          borderColor: "grey.300",
-          borderRadius: 2,
-          p: 2,
-          mb: 2,
-        }}
-      >
-        <Typography variant="h6" sx={{ mb: 1, fontWeight: "bold" }}>
-          Current Bounty
-        </Typography>
-        <Box sx={{ display: "flex", alignItems: "center", gap: 1, mb: 2 }}>
-          <span role="img" aria-label="points">
-            🪙
-          </span>
-          <Typography
-            variant="h5"
-            sx={{ fontWeight: "bold", color: "primary.main" }}
-          >
-            {selectedPin.bounty.toLocaleString()}
-          </Typography>
-          <Typography variant="body2" color="text.secondary">
-            points
-          </Typography>
-        </Box>
-
-        <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
-          Add points to increase the bounty for this job
-        </Typography>
-
-        {error && (
-          <Alert severity="error" sx={{ mb: 2 }}>
-            {error}
-          </Alert>
-        )}
-
-        <Box sx={{ display: "flex", gap: 1, alignItems: "flex-end" }}>
-          <TextField
-            label="Points to add"
-            type="number"
-            value={bountyAmount}
-            onChange={(e) => {
-              setBountyAmount(e.target.value);
-              if (error) setError(""); // Clear error when user starts typing
-            }}
-            size="small"
-            sx={{ flexGrow: 1 }}
-            inputProps={{ min: 1, max: userPoints }}
-          />
-          <Button
-            variant="contained"
-            onClick={handleAddToBounty}
-            disabled={!bountyAmount || userPoints === 0}
-            sx={{ height: "40px" }}
-          >
-            Add
-          </Button>
-        </Box>
-
-        <Typography
-          variant="caption"
-          color="text.secondary"
-          sx={{ mt: 1, display: "block" }}
+      {/* Bounty Section - Only show if user is authenticated */}
+      {user && (
+        <Box
+          sx={{
+            border: "1px solid",
+            borderColor: "grey.300",
+            borderRadius: 2,
+            p: 2,
+            mb: 2,
+          }}
         >
-          Available points: {userPoints.toLocaleString()}
-        </Typography>
-      </Box>
+          <Typography variant="h6" sx={{ mb: 1, fontWeight: "bold" }}>
+            Current Bounty
+          </Typography>
+          <Box sx={{ display: "flex", alignItems: "center", gap: 1, mb: 2 }}>
+            <span role="img" aria-label="points">
+              🪙
+            </span>
+            <Typography
+              variant="h5"
+              sx={{ fontWeight: "bold", color: "primary.main" }}
+            >
+              {selectedPin.bounty.toLocaleString()}
+            </Typography>
+            <Typography variant="body2" color="text.secondary">
+              points
+            </Typography>
+          </Box>
+
+          <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+            Add points to increase the bounty for this job
+          </Typography>
+
+          {error && (
+            <Alert severity="error" sx={{ mb: 2 }}>
+              {error}
+            </Alert>
+          )}
+
+          <Box sx={{ display: "flex", gap: 1, alignItems: "flex-end" }}>
+            <TextField
+              label="Points to add"
+              type="number"
+              value={bountyAmount}
+              onChange={(e) => {
+                setBountyAmount(e.target.value);
+                if (error) setError(""); // Clear error when user starts typing
+              }}
+              size="small"
+              sx={{ flexGrow: 1 }}
+              inputProps={{ min: 1, max: userPoints }}
+            />
+            <Button
+              variant="contained"
+              onClick={handleAddToBounty}
+              disabled={!bountyAmount || userPoints === 0}
+              sx={{ height: "40px" }}
+            >
+              Add
+            </Button>
+          </Box>
+
+          <Typography
+            variant="caption"
+            color="text.secondary"
+            sx={{ mt: 1, display: "block" }}
+          >
+            Available points: {userPoints.toLocaleString()}
+          </Typography>
+        </Box>
+      )}
     </Box>
   );
 };

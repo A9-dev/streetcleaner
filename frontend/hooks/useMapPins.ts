@@ -22,11 +22,11 @@ const initialMapPins: MapPinData[] = [
     id: 2,
     position: { lat: 51.5085, lng: -0.1257 },
     title: "Westminster Bridge",
-    description: "Graffiti reported on bridge infrastructure",
+    description: "Mutti graffiti on my house!",
     job_type: "graffiti",
     bounty: 300,
     imageUrl:
-      "https://plus.unsplash.com/premium_photo-1661391282637-63d052b71fb5?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      "https://images.unsplash.com/photo-1661507064483-e1451c03f2b6?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OTB8fGJhZCUyMGdyYWZmaXRpfGVufDB8fDB8fHwy",
   },
   {
     id: 3,
