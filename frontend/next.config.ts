@@ -1,6 +1,7 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  reactStrictMode: true,
   images: {
     remotePatterns: [
       {
@@ -22,8 +23,23 @@ const nextConfig: NextConfig = {
         port: '',
         pathname: '/iu/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'jwjeuqbkksddragbdbue.supabase.co',
+        port: '',
+        pathname: '/**',
+      },
     ],
   },
+  async rewrites() {
+    return [
+      {
+        source: '/api/:path*',
+        destination: 'http://127.0.0.1:8000/api/:path*',
+      },
+    ];
+  },
+
 };
 
 export default nextConfig;
