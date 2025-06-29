@@ -25,7 +25,7 @@ export default function ProtectedLayout({
         <AppBar position="static">
           <Toolbar>
             <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-              Protected Area
+              Upkeep
             </Typography>
             <AuthButton />
           </Toolbar>
