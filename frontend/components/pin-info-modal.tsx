@@ -570,11 +570,13 @@ export const PinInfoModal: React.FC<PinInfoModalProps> = ({
               p: 3,
               textAlign: "center",
               mb: 3,
-              backgroundColor: "success.light",
-              opacity: 0.1,
+              backgroundColor: "#E8F5E8",
             }}
           >
-            <Typography variant="h6" sx={{ color: "success.dark", mb: 1 }}>
+            <Typography
+              variant="h6"
+              sx={{ color: "success.dark", mb: 1, fontWeight: "bold" }}
+            >
               Bounty Awarded!
             </Typography>
             <Box
@@ -590,11 +592,14 @@ export const PinInfoModal: React.FC<PinInfoModalProps> = ({
               </span>
               <Typography
                 variant="h4"
-                sx={{ fontWeight: "bold", color: "success.dark" }}
+                sx={{ fontWeight: "bold", color: "#1B5E20" }}
               >
                 {selectedPin.bounty.toLocaleString()}
               </Typography>
-              <Typography variant="body1" sx={{ color: "success.dark" }}>
+              <Typography
+                variant="body1"
+                sx={{ color: "#1B5E20", fontWeight: "bold" }}
+              >
                 points
               </Typography>
             </Box>
