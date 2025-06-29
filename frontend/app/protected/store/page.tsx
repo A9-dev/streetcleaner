@@ -19,7 +19,8 @@ const ProductCardStyling = {
   height: "100%",
   boxSizing: "border-box",
   display: "flex",
-  flexDirection: "row",
+  flexDirection: "column",
+  alignItems: "center",
   justifyContent: "space-between",
 };
 
@@ -152,7 +153,14 @@ export default async function ProtectedPage() {
               </CardContent>
             </CardActionArea>
             <CardActions>
-              <Button size="small" color="primary" sx={{ fontWeight: 'bold', backgroundColor: 'rgba(25, 118, 210, 0.08)' }}>
+              <Button
+                size="small"
+                color="primary"
+                sx={{
+                  fontWeight: "bold",
+                  backgroundColor: "rgba(25, 118, 210, 0.08)",
+                }}
+              >
                 Buy
               </Button>
             </CardActions>
@@ -183,7 +191,14 @@ export default async function ProtectedPage() {
               </CardContent>
             </CardActionArea>
             <CardActions>
-              <Button size="small" color="primary" sx={{ fontWeight: 'bold', backgroundColor: 'rgba(25, 118, 210, 0.08)' }}>
+              <Button
+                size="small"
+                color="primary"
+                sx={{
+                  fontWeight: "bold",
+                  backgroundColor: "rgba(25, 118, 210, 0.08)",
+                }}
+              >
                 Buy
               </Button>
             </CardActions>
@@ -214,7 +229,14 @@ export default async function ProtectedPage() {
               </CardContent>
             </CardActionArea>
             <CardActions>
-              <Button size="small" color="primary" sx={{ fontWeight: 'bold', backgroundColor: 'rgba(25, 118, 210, 0.08)' }}>
+              <Button
+                size="small"
+                color="primary"
+                sx={{
+                  fontWeight: "bold",
+                  backgroundColor: "rgba(25, 118, 210, 0.08)",
+                }}
+              >
                 Buy
               </Button>
             </CardActions>
@@ -245,7 +267,14 @@ export default async function ProtectedPage() {
               </CardContent>
             </CardActionArea>
             <CardActions>
-              <Button size="small" color="primary" sx={{ fontWeight: 'bold', backgroundColor: 'rgba(25, 118, 210, 0.08)' }}>
+              <Button
+                size="small"
+                color="primary"
+                sx={{
+                  fontWeight: "bold",
+                  backgroundColor: "rgba(25, 118, 210, 0.08)",
+                }}
+              >
                 Buy
               </Button>
             </CardActions>
@@ -276,7 +305,14 @@ export default async function ProtectedPage() {
               </CardContent>
             </CardActionArea>
             <CardActions>
-              <Button size="small" color="primary" sx={{ fontWeight: 'bold', backgroundColor: 'rgba(25, 118, 210, 0.08)' }}>
+              <Button
+                size="small"
+                color="primary"
+                sx={{
+                  fontWeight: "bold",
+                  backgroundColor: "rgba(25, 118, 210, 0.08)",
+                }}
+              >
                 Buy
               </Button>
             </CardActions>
@@ -380,7 +416,14 @@ export default async function ProtectedPage() {
               </CardContent>
             </CardActionArea>
             <CardActions>
-              <Button size="small" color="primary" sx={{ fontWeight: 'bold', backgroundColor: 'rgba(25, 118, 210, 0.08)' }}>
+              <Button
+                size="small"
+                color="primary"
+                sx={{
+                  fontWeight: "bold",
+                  backgroundColor: "rgba(25, 118, 210, 0.08)",
+                }}
+              >
                 Buy
               </Button>
             </CardActions>
@@ -402,13 +445,20 @@ export default async function ProtectedPage() {
               </CardContent>
             </CardActionArea>
             <CardActions>
-              <Button size="small" color="primary" sx={{ fontWeight: 'bold', backgroundColor: 'rgba(25, 118, 210, 0.08)' }}>
+              <Button
+                size="small"
+                color="primary"
+                sx={{
+                  fontWeight: "bold",
+                  backgroundColor: "rgba(25, 118, 210, 0.08)",
+                }}
+              >
                 Buy
               </Button>
             </CardActions>
           </Card>
-          </Box>
-          </Box>
+        </Box>
+      </Box>
 
       {/* KFC Banner */}
       <Box
@@ -506,7 +556,14 @@ export default async function ProtectedPage() {
               </CardContent>
             </CardActionArea>
             <CardActions>
-              <Button size="small" color="primary" sx={{ fontWeight: 'bold', backgroundColor: 'rgba(25, 118, 210, 0.08)' }}>
+              <Button
+                size="small"
+                color="primary"
+                sx={{
+                  fontWeight: "bold",
+                  backgroundColor: "rgba(25, 118, 210, 0.08)",
+                }}
+              >
                 Buy
               </Button>
             </CardActions>
@@ -528,7 +585,14 @@ export default async function ProtectedPage() {
               </CardContent>
             </CardActionArea>
             <CardActions>
-              <Button size="small" color="primary" sx={{ fontWeight: 'bold', backgroundColor: 'rgba(25, 118, 210, 0.08)' }}>
+              <Button
+                size="small"
+                color="primary"
+                sx={{
+                  fontWeight: "bold",
+                  backgroundColor: "rgba(25, 118, 210, 0.08)",
+                }}
+              >
                 Buy
               </Button>
             </CardActions>
@@ -550,7 +614,14 @@ export default async function ProtectedPage() {
               </CardContent>
             </CardActionArea>
             <CardActions>
-              <Button size="small" color="primary" sx={{ fontWeight: 'bold', backgroundColor: 'rgba(25, 118, 210, 0.08)' }}>
+              <Button
+                size="small"
+                color="primary"
+                sx={{
+                  fontWeight: "bold",
+                  backgroundColor: "rgba(25, 118, 210, 0.08)",
+                }}
+              >
                 Buy
               </Button>
             </CardActions>
@@ -572,7 +643,14 @@ export default async function ProtectedPage() {
               </CardContent>
             </CardActionArea>
             <CardActions>
-              <Button size="small" color="primary" sx={{ fontWeight: 'bold', backgroundColor: 'rgba(25, 118, 210, 0.08)' }}>
+              <Button
+                size="small"
+                color="primary"
+                sx={{
+                  fontWeight: "bold",
+                  backgroundColor: "rgba(25, 118, 210, 0.08)",
+                }}
+              >
                 Buy
               </Button>
             </CardActions>
@@ -594,26 +672,29 @@ export default async function ProtectedPage() {
               </CardContent>
             </CardActionArea>
             <CardActions>
-              <Button size="small" color="primary" sx={{ fontWeight: 'bold', backgroundColor: 'rgba(25, 118, 210, 0.08)' }}>
+              <Button
+                size="small"
+                color="primary"
+                sx={{
+                  fontWeight: "bold",
+                  backgroundColor: "rgba(25, 118, 210, 0.08)",
+                }}
+              >
                 Buy
               </Button>
             </CardActions>
           </Card>
         </Box>
       </Box>
-      {/* Divider */}
-      <Divider sx={{ my: 4 }} />
 
-      {/* Products Section */}
+      {/* Products Banner */}
       <Box>
         <Typography
           variant="h4"
           component="h2"
           gutterBottom
           sx={{ textAlign: "center", mb: 3 }}
-        >
-          Shop for Products
-        </Typography>
+        ></Typography>
         <Box
           sx={{
             display: "flex",
@@ -623,6 +704,47 @@ export default async function ProtectedPage() {
             gap: 3,
           }}
         >
+          <Box
+            sx={{
+              width: "100%",
+              height: 150,
+              borderRadius: 3,
+              background: "linear-gradient(135deg, #B39DDB 0%, #512DA8 100%)",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+              p: 3,
+              mb: 2,
+              boxShadow: "0 4px 20px #7E57C2",
+            }}
+          >
+            <Box sx={{ flex: 1 }}>
+              <Typography
+                variant="h3"
+                component="h2"
+                sx={{
+                  color: "white",
+                  fontWeight: "bold",
+                  mb: 1,
+                  textShadow: "2px 2px 4px rgba(0,0,0,0.3)",
+                }}
+              >
+                Partnered Products
+              </Typography>
+              <Typography
+                variant="h6"
+                sx={{
+                  color: "white",
+                  opacity: 0.9,
+                  textShadow: "1px 1px 2px rgba(0,0,0,0.3)",
+                }}
+              >
+                Shop Hot New Deals!
+              </Typography>
+            </Box>
+          </Box>
+          {/* Products */}
+
           <Card sx={ProductCardStyling}>
             <CardActionArea>
               <CardMedia
@@ -640,7 +762,14 @@ export default async function ProtectedPage() {
               </CardContent>
             </CardActionArea>
             <CardActions>
-              <Button size="small" color="primary" sx={{ fontWeight: 'bold', backgroundColor: 'rgba(25, 118, 210, 0.08)' }}>
+              <Button
+                size="small"
+                color="primary"
+                sx={{
+                  fontWeight: "bold",
+                  backgroundColor: "rgba(25, 118, 210, 0.08)",
+                }}
+              >
                 Buy
               </Button>
             </CardActions>
@@ -662,7 +791,14 @@ export default async function ProtectedPage() {
               </CardContent>
             </CardActionArea>
             <CardActions>
-              <Button size="small" color="primary" sx={{ fontWeight: 'bold', backgroundColor: 'rgba(25, 118, 210, 0.08)' }}>
+              <Button
+                size="small"
+                color="primary"
+                sx={{
+                  fontWeight: "bold",
+                  backgroundColor: "rgba(25, 118, 210, 0.08)",
+                }}
+              >
                 Buy
               </Button>
             </CardActions>
@@ -684,7 +820,14 @@ export default async function ProtectedPage() {
               </CardContent>
             </CardActionArea>
             <CardActions>
-              <Button size="small" color="primary" sx={{ fontWeight: 'bold', backgroundColor: 'rgba(25, 118, 210, 0.08)' }}>
+              <Button
+                size="small"
+                color="primary"
+                sx={{
+                  fontWeight: "bold",
+                  backgroundColor: "rgba(25, 118, 210, 0.08)",
+                }}
+              >
                 Buy
               </Button>
             </CardActions>
