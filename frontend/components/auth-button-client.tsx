@@ -60,6 +60,12 @@ export const AuthButtonClient: React.FC = () => {
           {userPoints.toLocaleString()}
         </Typography>
       </Box>
+      <Button color="inherit" component={Link} href="/protected/map">
+        Map
+      </Button>
+      <Button color="inherit" component={Link} href="/protected/leaderboard">
+        Leaderboard
+      </Button>
       <LogoutButton />
     </Box>
   ) : (
