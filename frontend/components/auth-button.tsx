@@ -34,6 +34,12 @@ export async function AuthButton() {
           8000
         </Typography>
       </Box>
+      <Button color="inherit" component={Link} href="/protected/map">
+        Map
+      </Button>
+      <Button color="inherit" component={Link} href="/protected/leaderboard">
+        Leaderboard
+      </Button>
       <LogoutButton />
     </Box>
   ) : (
