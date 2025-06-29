@@ -24,7 +24,7 @@ export default function Home() {
                 href={"/"}
                 style={{ textDecoration: "none", color: "inherit" }}
               >
-                Next.js Supabase Starter
+                Upkeep
               </Link>
             </Typography>
             <AuthButton />
