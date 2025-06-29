@@ -117,6 +117,17 @@ export const PinInfoModal: React.FC<PinInfoModalProps> = ({
     return () => subscription.unsubscribe();
   }, []);
 
+  // Reset modal state when a new pin is selected or modal opens
+  useEffect(() => {
+    if (selectedPin) {
+      setCurrentPage("info");
+      setSelectedImage(null);
+      setValidationProgress(0);
+      setError("");
+      setBountyAmount("");
+    }
+  }, [selectedPin]); // Reset when selectedPin changes
+
   if (!selectedPin) return null;
 
   const jobTypeColors = getJobTypeColors(selectedPin.job_type);
