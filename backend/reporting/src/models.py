@@ -22,6 +22,7 @@ class JobStatus(Enum):
 
 
 class Job(BaseModel):
+    reporter_id: str
     job_type: str
     description: str
     image: HttpUrl

@@ -35,6 +35,7 @@ async def create_job(
     )
 
     job = Job(
+        reporter_id=reporter_id,
         job_type=job_type,
         description=description,
         image=image_url,
