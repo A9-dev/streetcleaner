@@ -1,11 +1,16 @@
 from decimal import Decimal
 from math import asin, cos, radians, sin, sqrt
 
-from fastapi import APIRouter, Form, Query, UploadFile
+from fastapi import APIRouter, File, Form, Query, UploadFile
 from loguru import logger
 
 from src.models import GPSLocation, Job, JobStatus
-from src.services import insert_job, list_jobs_from_db, upload_to_supabase
+from src.services import (
+    insert_job,
+    list_jobs_from_db,
+    update_job_status,
+    upload_to_supabase,
+)
 
 router = APIRouter()
 
@@ -84,3 +89,22 @@ async def list_jobs(
         jobs = [j for j in jobs if within_radius(j)]
 
     return jobs
+
+
+@router.post("/resolve")
+async def resolve_job(
+    job_id: str = Form(...),
+    resolver_id: str = Form(...),
+    proof_image: UploadFile = File(...),
+):
+    from src.main import settings
+
+    image_url: str = await upload_to_supabase(
+        proof_image.file,
+        supabase_url=settings.supabase_url,
+        supabase_key=settings.supabase_anon_key,
+        bucket_name=settings.supabase_bucket,
+    )
+
+    update_job_status(job_id, resolver_id, image_url)
+    return {"status": "success"}
