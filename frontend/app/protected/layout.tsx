@@ -1,14 +1,7 @@
 "use client";
 
 import { AuthButton } from "@/components/auth-button";
-import {
-  Box,
-  Container,
-  AppBar,
-  Toolbar,
-  Typography,
-  Paper,
-} from "@mui/material";
+import { Box, Container, AppBar, Toolbar, Typography } from "@mui/material";
 import { UserPointsProvider } from "@/hooks/useUserPoints";
 
 export default function ProtectedLayout({
@@ -32,14 +25,6 @@ export default function ProtectedLayout({
         </AppBar>
 
         <Container sx={{ flex: 1, py: 4 }}>{children}</Container>
-
-        <Paper component="footer" sx={{ mt: "auto", py: 2 }}>
-          <Container>
-            <Typography variant="body2" align="center">
-              Footer
-            </Typography>
-          </Container>
-        </Paper>
       </Box>
     </UserPointsProvider>
   );
