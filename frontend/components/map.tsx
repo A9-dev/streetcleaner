@@ -39,6 +39,18 @@ const defaultMapOptions = {
   tilt: 0,
   gestureHandling: "auto",
   mapTypeId: "roadmap", // Standard road map view only
+
+  // Map styles to hide points of interest
+  styles: [
+    {
+      featureType: "poi",
+      stylers: [{ visibility: "off" }],
+    },
+    {
+      featureType: "poi.business",
+      stylers: [{ visibility: "off" }],
+    },
+  ],
 };
 
 const MapComponent = () => {
