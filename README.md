@@ -1,6 +1,6 @@
 # Upkeep
 
-> **Crowdsourced community cleanup**
+> **Crowdsourced Community Cleanup** - Built in 24 hours at the LFG x Basis 2025 Hackathon.
 
 Upkeep is a hackathon project we put together in 48 hours. It turns local cleanup into a game: drop pins on messes, earn points for cleaning them, and trade those points for small rewards.
 
